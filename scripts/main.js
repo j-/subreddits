@@ -36,4 +36,6 @@ define(function (require) {
 	window.init = function () {
 		all.set(subreddits);
 	};
+
+	window.sync = require('modules/sync');
 });
