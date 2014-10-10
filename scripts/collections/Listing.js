@@ -4,14 +4,14 @@ define(function (require) {
 	var LinkModel = require('models/LinkModel');
 	var Listing = ok.Collection.extend({
 		getConstructor: function (item) {
-			if (item.type === 't1') {
+			if (item.kind === 't1') {
 				return CommentModel;
 			}
-			else if (item.type === 't3') {
+			else if (item.kind === 't3') {
 				return LinkModel;
 			}
 			else {
-				throw new Error('Listing child type not recognised');
+				throw new Error('Listing child kind not recognised');
 			}
 		}
 	});
