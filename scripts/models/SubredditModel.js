@@ -1,6 +1,6 @@
 define(function (require) {
-	var ok = require('ok');
-	var SubredditModel = ok.Map.extend({
+	var ThingModel = require('models/ThingModel');
+	var SubredditModel = ThingModel.extend({
 		defaults: {
 			kind: 't5',
 			id: null

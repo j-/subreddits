@@ -1,6 +1,6 @@
 define(function (require) {
-	var ok = require('ok');
-	var CommentModel = ok.Map.extend({
+	var ThingModel = require('models/ThingModel');
+	var CommentModel = ThingModel.extend({
 		defaults: {
 			kind: 't1'
 		}
