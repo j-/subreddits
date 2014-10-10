@@ -23,6 +23,7 @@ define(function (require, exports) {
 		}, options);
 		// convert subreddit(s) into url
 		var page = 'http://www.reddit.com' + (settings.page || '/') + '.json';
+		delete settings.page;
 		// make sure callback is a function
 		callback = typeof callback === 'function' ? callback : _.identity;
 		// make call
