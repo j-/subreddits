@@ -1,15 +1,7 @@
 define(function (require, exports) {
 	var ok = require('ok');
 	var _ = require('underscore');
-
-	var SubredditModel = ok.Map.extend({
-		defaults: {
-			id: null
-		},
-		toString: function () {
-			return this.get('id');
-		}
-	});
+	var SubredditModel = require('models/SubredditModel');
 
 	var MultiredditCollection = ok.Collection.extend({
 		defaultConstructor: SubredditModel,

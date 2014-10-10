@@ -1,5 +1,12 @@
 define(function (require) {
-	var subreddits = require('modules/subreddits');
-	var SubredditModel = subreddits.SubredditModel;
+	var ok = require('ok');
+	var SubredditModel = ok.Map.extend({
+		defaults: {
+			id: null
+		},
+		toString: function () {
+			return this.get('id');
+		}
+	});
 	return SubredditModel;
 });

@@ -1,5 +1,5 @@
 define(function (require) {
-	var subreddits = require('modules/subreddits');
-	var MultiredditCollection = subreddits.MultiredditCollection;
+	var multireddits = require('modules/multireddits');
+	var MultiredditCollection = multireddits.MultiredditCollection;
 	return MultiredditCollection;
 });
