@@ -61,7 +61,7 @@ define(function (require, exports) {
 	exports.getUserListing = function (options, callback) {
 		var settings = _.extend({}, options);
 		if (settings.page) {
-			settings.page = '/u/' + settings.page;
+			settings.page = '/user/' + settings.page;
 		}
 		exports.getListing(settings, callback);
 	};
