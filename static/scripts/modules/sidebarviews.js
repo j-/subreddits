@@ -74,8 +74,7 @@ define(function (require, exports) {
 			});
 			this.$collapse = $('<div/>')
 				.attr('tabindex', -1)
-				.text('-')
-				.addClass('collapse');
+				.addClass('collapse-toggle expanded');
 		},
 		render: function () {
 			this.empty();
@@ -97,7 +96,7 @@ define(function (require, exports) {
 			$(this.el)
 				.toggleClass('hide-children', !shown);
 			this.$collapse
-				.text(shown ? '-' : '+');
+				.toggleClass('expanded', shown);
 		},
 		hideChildren: function () {
 			var $list = $(this.childrenView.el);
@@ -105,7 +104,7 @@ define(function (require, exports) {
 			$(this.el)
 				.addClass('hide-children');
 			this.$collapse
-				.text('+');
+				.removeClass('expanded');
 		},
 		showChildren: function () {
 			var $list = $(this.childrenView.el);
@@ -113,7 +112,7 @@ define(function (require, exports) {
 			$(this.el)
 				.removeClass('hide-children');
 			this.$collapse
-				.text('-');
+				.addClass('expanded');
 		},
 		isChildrenShown: function () {
 			return $(this.childrenView.el).is(':visible');

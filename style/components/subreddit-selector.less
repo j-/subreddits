@@ -45,15 +45,25 @@
 	}
 
 	// +/- collapse for multireddits
-	.collapse {
+	.collapse-toggle:extend(.glyphicon) {
 		float: left;
-		border: none;
-		background: transparent;
-		font-family: monospace;
-		margin: 0;
+		outline: none;
+		cursor: pointer;
+	}
+	.collapse-toggle:hover:after {
+		color: #444;
+	}
+	.collapse-toggle:after {
+		font-size: (@font-size-base * 0.6);
+		display: inline-block;;
 		width: 20px;
-		cursor: default;
-		display: inline-block;
+		line-height: 24px;
+		content: '\2b';
+		text-align: center;
+		color: #888;
+	}
+	.collapse-toggle.expanded:after {
+		content: '\2212';
 	}
 
 	.subreddits {
