@@ -37,5 +37,25 @@ define(function (require) {
 		all.set(subreddits);
 	};
 
-	window.sync = require('modules/sync');
+	var sync = window.sync = require('modules/sync');
+
+	var Listing = require('collections/Listing');
+	var frontpage = new Listing();
+	sync.getUserListing({ page: 'notonlythat' }, function (err, response) {
+		frontpage.set(response.data.children);
+		console.log(frontpage.get());
+	});
+
+	var ListingView = require('views/ListingView');
+	var listingview = new ListingView({
+		id: 'listing',
+		watch: frontpage
+	});
+
+	listingview.render();
+	listingview.start();
+
+	$(function () {
+		$(document.body).append(listingview.el);
+	});
 });
