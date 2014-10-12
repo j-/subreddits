@@ -6,7 +6,7 @@ define(function (require, exports) {
 	var MultiredditCollection = ok.Collection.extend({
 		defaultConstructor: SubredditModel,
 		getConstructor: function (map) {
-			if (typeof map.id === 'string') {
+			if (typeof map.display_name === 'string') {
 				return SubredditModel;
 			}
 			else {

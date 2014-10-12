@@ -3,10 +3,10 @@ define(function (require) {
 	var SubredditModel = ThingModel.extend({
 		defaults: {
 			kind: 't5',
-			id: null
+			display_name: null
 		},
 		toString: function () {
-			return this.get('id');
+			return this.get('display_name');
 		}
 	});
 	return SubredditModel;

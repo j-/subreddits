@@ -3,16 +3,12 @@ define(function (require, exports) {
 	require('ok.views');
 	var $ = require('jquery');
 	var SubredditModel = require('models/SubredditModel');
+	var InlineSubredditView = require('views/InlineSubredditView');
 
-	var SubredditTextView = ok.SimpleView.extend({
-		tagName: 'a',
-		className: 'subreddit-name',
-		render: function () {
-			var id = this.watch.get('id');
-			$(this.el)
-				.attr('tabindex', -1)
-				.attr('href', 'http://www.reddit.com/r/' + id)
-				.text(id);
+	var SubredditTextView = InlineSubredditView.extend({
+		render: function fn () {
+			fn.old.call(this);
+			$(this.el).attr('tabindex', -1);
 		}
 	});
 
@@ -44,10 +40,10 @@ define(function (require, exports) {
 		className: 'multireddit-name',
 		render: function () {
 			var name = this.watch.get('name');
-			var id = this.watch.toString();
+			var displayName = this.watch.get('display_name');
 			$(this.el)
 				.attr('tabindex', -1)
-				.attr('href', 'http://www.reddit.com/r/' + id)
+				.attr('href', 'http://www.reddit.com/r/' + displayName)
 				.text(name);
 		}
 	});

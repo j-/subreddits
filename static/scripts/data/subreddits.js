@@ -1,198 +1,198 @@
 define(function () {
 	return [
-		{ id: 'AskReddit' },
+		{ display_name: 'AskReddit' },
 		{
 			name: 'Music',
 			children: [
 				{
 					name: 'Dubstep',
 					children: [
-						{ id: 'dubstep' },
-						{ id: 'realdubstep' },
-						{ id: 'Brostep' }
+						{ display_name: 'dubstep' },
+						{ display_name: 'realdubstep' },
+						{ display_name: 'Brostep' }
 					]
 				},
 				{
 					name: 'Good stuff',
 					children: [
-						{ id: 'electrohouse' },
-						{ id: 'futuregarage' },
-						{ id: 'trap' },
-						{ id: 'DnB' }
+						{ display_name: 'electrohouse' },
+						{ display_name: 'futuregarage' },
+						{ display_name: 'trap' },
+						{ display_name: 'DnB' }
 					]
 				},
 				{
 					name: 'Swing',
 					children: [
-						{ id: 'swinghouse' },
-						{ id: 'electroswing' },
+						{ display_name: 'swinghouse' },
+						{ display_name: 'electroswing' },
 					]
 				},
-				{ id: 'drumstep' },
-				{ id: 'darkstep' },
-				{ id: 'futurebeats' },
-				{ id: 'electronicmusic' },
-				{ id: 'proghouse' },
-				{ id: 'BigRoom' },
-				{ id: 'glitchhop' },
-				{ id: 'minimal' },
-				{ id: 'triphop' },
-				{ id: 'bassmusic' },
-				{ id: 'breakbeat' },
-				{ id: 'juke' }
+				{ display_name: 'drumstep' },
+				{ display_name: 'darkstep' },
+				{ display_name: 'futurebeats' },
+				{ display_name: 'electronicmusic' },
+				{ display_name: 'proghouse' },
+				{ display_name: 'BigRoom' },
+				{ display_name: 'glitchhop' },
+				{ display_name: 'minimal' },
+				{ display_name: 'triphop' },
+				{ display_name: 'bassmusic' },
+				{ display_name: 'breakbeat' },
+				{ display_name: 'juke' }
 			]
 		},
 		{
 			name: 'Yum',
 			children: [
-				{ id: 'food' },
-				{ id: 'foodporn' },
-				{ id: 'recipes' },
-				{ id: 'baking' },
-				{ id: 'cakeporn' },
-				{ id: 'sousvide' },
-				{ id: 'streeteats' },
-				{ id: 'steak' },
-				{ id: 'dessert' },
-				{ id: 'dessertporn' },
-				{ id: 'eatcheapandhealthy' },
-				{ id: 'eatsandwiches' },
-				{ id: 'fastfood' },
-				{ id: 'grilledcheese' },
-				{ id: 'cheeseburgers' }
+				{ display_name: 'food' },
+				{ display_name: 'foodporn' },
+				{ display_name: 'recipes' },
+				{ display_name: 'baking' },
+				{ display_name: 'cakeporn' },
+				{ display_name: 'sousvide' },
+				{ display_name: 'streeteats' },
+				{ display_name: 'steak' },
+				{ display_name: 'dessert' },
+				{ display_name: 'dessertporn' },
+				{ display_name: 'eatcheapandhealthy' },
+				{ display_name: 'eatsandwiches' },
+				{ display_name: 'fastfood' },
+				{ display_name: 'grilledcheese' },
+				{ display_name: 'cheeseburgers' }
 			]
 		},
 		{
 			name: 'Tech',
 			children: [
-				{ id: 'technology' },
+				{ display_name: 'technology' },
 				{
 					name: 'Programming',
 					children: [
-						{ id: 'programming' },
-						{ id: 'javascript' },
-						{ id: 'node' },
-						{ id: 'webdev' },
-						{ id: 'web_design' },
-						{ id: 'redditdev' },
-						{ id: 'html5' },
+						{ display_name: 'programming' },
+						{ display_name: 'javascript' },
+						{ display_name: 'node' },
+						{ display_name: 'webdev' },
+						{ display_name: 'web_design' },
+						{ display_name: 'redditdev' },
+						{ display_name: 'html5' },
 					]
 				},
-				{ id: 'android' },
-				{ id: 'nexus4' },
-				{ id: 'nexus7' },
-				{ id: 'raspberry_pi' },
-				{ id: 'pebble' },
-				{ id: 'rtlsdr' },
-				{ id: 'carav' }
+				{ display_name: 'android' },
+				{ display_name: 'nexus4' },
+				{ display_name: 'nexus7' },
+				{ display_name: 'raspberry_pi' },
+				{ display_name: 'pebble' },
+				{ display_name: 'rtlsdr' },
+				{ display_name: 'carav' }
 			]
 		},
 		{
 			name: 'Cars',
 			children: [
-				{ id: 'cars' },
-				{ id: 'autos' },
-				{ id: 'drifting' },
-				{ id: 'nissan' },
-				{ id: 'subaru' },
-				{ id: 'autodetailing' },
-				{ id: 'carwraps' },
-				{ id: 'shittycarmods' },
-				{ id: 'justrolledintotheshop' }
+				{ display_name: 'cars' },
+				{ display_name: 'autos' },
+				{ display_name: 'drifting' },
+				{ display_name: 'nissan' },
+				{ display_name: 'subaru' },
+				{ display_name: 'autodetailing' },
+				{ display_name: 'carwraps' },
+				{ display_name: 'shittycarmods' },
+				{ display_name: 'justrolledintotheshop' }
 			]
 		},
 		{
 			name: 'Data',
 			children: [
-				{ id: 'dataisbeautiful' },
-				{ id: 'Infographics' },
-				{ id: 'visualization' }
+				{ display_name: 'dataisbeautiful' },
+				{ display_name: 'Infographics' },
+				{ display_name: 'visualization' }
 			]
 		},
 		{
 			name: 'Local',
 			children: [
-				{ id: 'australia' },
-				{ id: 'melbourne' }
+				{ display_name: 'australia' },
+				{ display_name: 'melbourne' }
 			]
 		},
 		{
 			name: 'Self-improvement',
 			children: [
-				{ id: 'malefashionadvice' },
-				{ id: 'seduction' },
-				{ id: 'fitness' },
-				{ id: 'lifeprotips' },
-				{ id: 'personalfinance' },
-				{ id: 'everymanshouldknow' },
-				{ id: 'LearnUselessTalents' },
-				{ id: 'YouShouldKnow' },
-				{ id: 'resumes' }
+				{ display_name: 'malefashionadvice' },
+				{ display_name: 'seduction' },
+				{ display_name: 'fitness' },
+				{ display_name: 'lifeprotips' },
+				{ display_name: 'personalfinance' },
+				{ display_name: 'everymanshouldknow' },
+				{ display_name: 'LearnUselessTalents' },
+				{ display_name: 'YouShouldKnow' },
+				{ display_name: 'resumes' }
 			]
 		},
 		{
 			name: 'Entertainment',
 			children: [
-				{ id: 'videos' },
-				{ id: 'nononono' },
-				{ id: 'contagiouslaughter' },
-				{ id: 'youtubehaiku' },
-				{ id: 'fullmoviesonyoutube' }
+				{ display_name: 'videos' },
+				{ display_name: 'nononono' },
+				{ display_name: 'contagiouslaughter' },
+				{ display_name: 'youtubehaiku' },
+				{ display_name: 'fullmoviesonyoutube' }
 			]
 		},
 		{
 			name: 'Want',
 			children: [
-				{ id: 'shutupandtakemymoney' },
-				{ id: 'ImSavingUpForThis' }
+				{ display_name: 'shutupandtakemymoney' },
+				{ display_name: 'ImSavingUpForThis' }
 			]
 		},
 		{
 			name: 'Interesting',
 			children: [
-				{ id: 'InternetIsBeautiful' },
-				{ id: 'glitch_art' },
-				{ id: 'whoahdude' }
+				{ display_name: 'InternetIsBeautiful' },
+				{ display_name: 'glitch_art' },
+				{ display_name: 'whoahdude' }
 			]
 		},
 		{
 			name: 'Jokes',
 			children: [
-				{ id: 'jokes' },
-				{ id: 'dadjokes' }
+				{ display_name: 'jokes' },
+				{ display_name: 'dadjokes' }
 			]
 		},
 		{
 			name: 'Tales',
 			children: [
-				{ id: 'talesfromtechsupport' },
-				{ id: 'TalesFromRetail' },
-				{ id: 'TalesFromTheFrontDesk' },
-				{ id: 'TalesFromYourServer' },
-				{ id: 'TalesFromThePizzaguy' },
-				{ id: 'pettyrevenge' },
-				{ id: 'prorevenge' },
-				{ id: 'fatpeoplestories' },
-				{ id: 'letsnotmeet' },
-				{ id: 'Glitch_in_the_Matrix' }
+				{ display_name: 'talesfromtechsupport' },
+				{ display_name: 'TalesFromRetail' },
+				{ display_name: 'TalesFromTheFrontDesk' },
+				{ display_name: 'TalesFromYourServer' },
+				{ display_name: 'TalesFromThePizzaguy' },
+				{ display_name: 'pettyrevenge' },
+				{ display_name: 'prorevenge' },
+				{ display_name: 'fatpeoplestories' },
+				{ display_name: 'letsnotmeet' },
+				{ display_name: 'Glitch_in_the_Matrix' }
 			],
 		},
 		{
 			name: 'Fights',
 			children: [
-				{ id: 'justiceporn' },
-				{ id: 'streetfights' },
-				{ id: 'amateurfights' }
+				{ display_name: 'justiceporn' },
+				{ display_name: 'streetfights' },
+				{ display_name: 'amateurfights' }
 			]
 		},
 		{
 			name: 'Awkward',
 			children: [
-				{ id: 'thathappened' },
-				{ id: 'cringe' },
-				{ id: 'cringepics' },
-				{ id: 'creepypms' },
-				{ id: 'quityourbullshit' }
+				{ display_name: 'thathappened' },
+				{ display_name: 'cringe' },
+				{ display_name: 'cringepics' },
+				{ display_name: 'creepypms' },
+				{ display_name: 'quityourbullshit' }
 			]
 		}
 	];
