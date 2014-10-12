@@ -15,6 +15,18 @@ requirejs.config({
 		'ok.views': {
 			deps: ['ok'],
 			exports: 'okaylib'
+		},
+		'ok.dollarview': {
+			deps: ['ok', 'ok.views', 'jquery'],
+			exports: 'okaylib'
+		}
+	},
+	map: {
+		'*': {
+			'jquery': 'lib/jquery-custom'
+		},
+		'lib/jquery-custom': {
+			'jquery': 'jquery'
 		}
 	}
 });
