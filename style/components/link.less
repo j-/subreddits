@@ -3,6 +3,7 @@
 	cursor: default;
 	min-height: 70px;
 	position: relative;
+	margin-bottom: 10px;
 
 	// posts marked NSFW
 	&.over18 {
@@ -28,7 +29,6 @@
 		background-repeat: no-repeat;
 		text-align: center;
 		margin: 1px;
-		margin-top: 0;
 		margin-right: 0.5em;
 		position: relative;
 		z-index: 2;
@@ -51,8 +51,15 @@
 		line-height: (70px / 3);
 	}
 
+	.favicon {
+		width: 16px;
+		height: 16px;
+		margin-right: 0.3em;
+	}
+
 	.title {
 		color: #008;
+		padding: 4px 0;
 	}
 	.title:visited {
 		color: #808;
