@@ -5,7 +5,8 @@ requirejs.config({
 		'ok': '//cdn.rawgit.com/j-/ok/0.1.1/ok',
 		'ok.views': '//cdn.rawgit.com/j-/ok/0.1.0/ok.views',
 		'ok.dollarview': '//cdn.rawgit.com/j-/ok/0.1.0/ok.dollarview',
-		'text': '//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text'
+		'text': '//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text',
+		'bootstrap': '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min'
 	},
 	shim: {
 		'ok': {
@@ -19,6 +20,10 @@ requirejs.config({
 		'ok.dollarview': {
 			deps: ['ok', 'ok.views', 'jquery'],
 			exports: 'okaylib'
+		},
+		'bootstrap': {
+			deps: ['jquery'],
+			exports: 'jquery'
 		}
 	},
 	map: {

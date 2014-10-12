@@ -1,5 +1,6 @@
 define(function (require) {
 	require('ok.views');
+	require('bootstrap');
 
 	var subreddits = require('data/subreddits');
 
@@ -57,5 +58,13 @@ define(function (require) {
 
 	$(function () {
 		$(document.body).append(listingview.el);
+	});
+
+	var HeaderView = require('views/HeaderView');
+	var header = new HeaderView();
+	header.render();
+
+	$(function () {
+		$(document.body).append(header.el);
 	});
 });
