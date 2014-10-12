@@ -40,10 +40,10 @@ define(function (require, exports) {
 		className: 'multireddit-name',
 		render: function () {
 			var name = this.watch.get('name');
-			var displayName = this.watch.get('display_name');
+			var subreddits = this.watch.toString();
 			$(this.el)
 				.attr('tabindex', -1)
-				.attr('href', 'http://www.reddit.com/r/' + displayName)
+				.attr('href', 'http://www.reddit.com/r/' + subreddits)
 				.text(name);
 		}
 	});
