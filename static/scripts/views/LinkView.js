@@ -2,10 +2,20 @@ define(function (require) {
 	var ok = require('ok');
 	require('ok.dollarview');
 	var _ = require('underscore');
+	var AccountModel = require('models/AccountModel');
+	var InlineUserView = require('views/InlineUserView');
 	var html = require('text!templates/Link.html');
 	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
 	var LinkView = ok.$View.extend({
 		className: 'link',
+		init: function () {
+			this.author = new AccountModel({
+				name: this.watch.get('author')
+			});
+			this.inlineUserView = new InlineUserView({
+				watch: this.author
+			});
+		},
 		render: function () {
 			this.empty();
 			this.$el.html(html);
@@ -54,9 +64,10 @@ define(function (require) {
 				.text(created.toLocaleString());
 		},
 		renderAuthor: function () {
-			var author = this.watch.get('author');
+			this.inlineUserView.render();
 			this.$('.author')
-				.text(author);
+				.empty()
+				.append(this.inlineUserView.el);
 		},
 		renderComments: function () {
 			var commentURL = this.watch.getCommentURL();
