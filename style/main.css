@@ -1,7 +1,20 @@
+body {
+	margin-left: 250px;
+	padding: 0 20px;
+}
 #subreddit-selector {
 	background: #fafafa;
 	width: 250px;
+	padding: 20px 0;
 	font: 11px Arial, Helvetica, sans-serif;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+#subreddit-selector:hover {
+	overflow: auto;
 }
 #subreddit-selector a {
 	text-decoration: none;
