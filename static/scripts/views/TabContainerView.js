@@ -12,6 +12,7 @@ define(function (require) {
 			this.stop();
 			$(window).on('keydown.tabContainerView', _.bind(this.handleKeyDown, this));
 			$(this.el).on('focus.tabContainerView', _.bind(this.handleFocus, this));
+			$(this.el).on('focus.tabContainerView', 'a', _.bind(this.handleFocusItem, this));
 			this.el.addEventListener('blur', _.bind(this.handleBlur, this), true);
 		},
 		stop: function () {
@@ -70,6 +71,9 @@ define(function (require) {
 				var $items = $container.find(selector);
 				$items.first().focus();
 			}
+		},
+		handleFocusItem: function () {
+			this.$lastFocus = $(document.activeElement);
 		},
 		handleBlur: function () {
 			$(this.el)

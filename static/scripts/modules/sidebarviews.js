@@ -29,9 +29,18 @@ define(function (require, exports) {
 			$(this.el)
 				.append($details);
 		},
+		handleMousedownDetails: function (e) {
+			e.stopPropagation();
+			$(this.subredditIdView.el).focus();
+		},
 		start: function () {
 			this.stop();
+			$(this.el).on('mousedown', '.details', _.bind(this.handleMousedownDetails, this));
 			this.subredditIdView.start();
+		},
+		stop: function fn () {
+			fn.old.call(this);
+			$(this.el).off('mousedown', '.details');
 		}
 	});
 
@@ -139,16 +148,22 @@ define(function (require, exports) {
 				}
 			}
 		},
+		handleMousedownDetails: function (e) {
+			e.stopPropagation();
+			$(this.nameView.el).focus();
+		},
 		start: function () {
 			this.stop();
 			this.childrenView.start();
 			this.nameView.start();
 			this.$collapse.on('click', _.bind(this.toggleCollapse, this));
+			$(this.el).on('mousedown', '.details', _.bind(this.handleMousedownDetails, this));
 			$(this.nameView.el).on('keydown', _.bind(this.handleKeyDown, this));
 		},
 		stop: function () {
 			ok.View.prototype.stop.apply(this, arguments);
 			this.$collapse.off('click');
+			$(this.el).off('mousedown');
 			$(this.nameView.el).off('keydown');
 		}
 	});
