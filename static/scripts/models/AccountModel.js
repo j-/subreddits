@@ -3,6 +3,9 @@ define(function (require) {
 	var AccountModel = ThingModel.extend({
 		defaults: {
 			kind: 't2'
+		},
+		getUserPageURL: function () {
+			return 'http://www.reddit.com/user/' + this.get('name');
 		}
 	});
 	return AccountModel;
