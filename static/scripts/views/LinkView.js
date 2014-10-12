@@ -59,9 +59,12 @@ define(function (require) {
 				.text(author);
 		},
 		renderComments: function () {
+			var commentURL = this.watch.getCommentURL();
 			var comments = this.watch.get('num_comments');
 			comments += ' ' + (comments === 1 ? 'comment' : 'comments');
 			this.$('.comments')
+				.attr('href', commentURL)
+				.attr('title', 'View comments')
 				.text(comments);
 		},
 		renderSubreddit: function () {

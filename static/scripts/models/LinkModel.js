@@ -9,6 +9,9 @@ define(function (require) {
 		},
 		defaults: {
 			kind: 't3'
+		},
+		getCommentURL: function () {
+			return 'http://www.reddit.com/comments/' + this.get('id');
 		}
 	});
 	return LinkModel;
