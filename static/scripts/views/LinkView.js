@@ -3,7 +3,9 @@ define(function (require) {
 	require('ok.dollarview');
 	var _ = require('underscore');
 	var AccountModel = require('models/AccountModel');
+	var SubredditModel = require('models/SubredditModel');
 	var InlineUserView = require('views/InlineUserView');
+	var InlineSubredditView = require('views/InlineSubredditView');
 	var html = require('text!templates/Link.html');
 	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
 	var LinkView = ok.$View.extend({
@@ -14,6 +16,12 @@ define(function (require) {
 			});
 			this.inlineUserView = new InlineUserView({
 				watch: this.author
+			});
+			this.subreddit = new SubredditModel({
+				display_name: this.watch.get('subreddit')
+			});
+			this.inlineSubredditView = new InlineSubredditView({
+				watch: this.subreddit
 			});
 		},
 		render: function () {
@@ -79,9 +87,10 @@ define(function (require) {
 				.text(comments);
 		},
 		renderSubreddit: function () {
-			var subreddit = this.watch.get('subreddit');
+			this.inlineSubredditView.render();
 			this.$('.subreddit')
-				.text(subreddit);
+				.empty()
+				.append(this.inlineSubredditView.el);
 		},
 		getFaviconURL: function (url) {
 			return FAVICON_BASE_URL + encodeURIComponent(url);
