@@ -1,0 +1,17 @@
+{
+  "name": "subreddits",
+  "version": "0.0.0",
+  "description": "Reddit client",
+  "keywords": [
+    "reddit"
+  ],
+  "author": "Jamie Hoeks <j@skeoh.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-less": "^1.3.6"
+  },
+  "dependencies": {
+    "express": "^4.9.7"
+  }
+}

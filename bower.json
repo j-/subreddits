@@ -1,0 +1,16 @@
+{
+  "name": "subreddits",
+  "version": "0.0.0",
+  "authors": [
+    "Jamie Hoeks <j@skeoh.com>"
+  ],
+  "description": "Reddit client",
+  "keywords": [
+    "reddit"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}
