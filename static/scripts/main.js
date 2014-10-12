@@ -41,7 +41,7 @@ define(function (require) {
 
 	var Listing = require('collections/Listing');
 	var frontpage = new Listing();
-	sync.getUserListing({ page: 'notonlythat' }, function (err, response) {
+	sync.getListing({ page: '/' }, function (err, response) {
 		frontpage.set(response.data.children);
 		console.log(frontpage.get());
 	});
