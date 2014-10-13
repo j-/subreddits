@@ -110,9 +110,12 @@ define(function (require) {
 				this.$el.addClass('has-embedded');
 			}
 		},
-		handleClickThumbnail: function () {
-			var visible = this.$('.embedded').toggle().is(':visible');
-			this.$el.toggleClass('showing-embedded', visible);
+		handleClickThumbnail: function (e) {
+			e.preventDefault();
+			if (this.embeddedView) {
+				var visible = this.$('.embedded').toggle().is(':visible');
+				this.$el.toggleClass('showing-embedded', visible);
+			}
 		},
 		getFaviconURL: function (url) {
 			return FAVICON_BASE_URL + encodeURIComponent(url);
