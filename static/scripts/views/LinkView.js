@@ -105,16 +105,48 @@ define(function (require) {
 		},
 		renderEmbeddedMedia: function () {
 			if (this.embeddedView) {
-				this.embeddedView.setElement(this.$('.embedded').hide());
-				this.embeddedView.render();
 				this.$el.addClass('has-embedded');
+				if (this.showingEmbedded) {
+					this.showEmbedded();
+				}
+			}
+		},
+		toggleEmbedded: function () {
+			if (this.embeddedView) {
+				var $embedded = this.$('embedded');
+				var showing = this.showingEmbedded;
+				if (showing) {
+					this.hideEmbedded();
+				}
+				else {
+					this.showEmbedded();
+				}
+			}
+		},
+		showEmbedded: function () {
+			if (this.embeddedView) {
+				this.showingEmbedded = true;
+				this.embeddedView.render();
+				this.$('.embedded')
+					.show()
+					.append(this.embeddedView.$el);
+				this.$el.addClass('showing-embedded');
+			}
+		},
+		hideEmbedded: function () {
+			if (this.embeddedView) {
+				this.showingEmbedded = false;
+				this.$('.embedded')
+					.hide()
+					.children()
+					.detach();
+				this.$el.removeClass('showing-embedded');
 			}
 		},
 		handleClickThumbnail: function (e) {
 			e.preventDefault();
 			if (this.embeddedView) {
-				var visible = this.$('.embedded').toggle().is(':visible');
-				this.$el.toggleClass('showing-embedded', visible);
+				this.toggleEmbedded();
 			}
 		},
 		getFaviconURL: function (url) {
