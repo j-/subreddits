@@ -6,8 +6,11 @@ define(function (require) {
 	var SubredditModel = require('models/SubredditModel');
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
+	var embedded = require('modules/embedded');
 	var html = require('text!templates/Link.html');
+
 	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
+
 	var LinkView = ok.$View.extend({
 		className: 'link',
 		init: function () {
@@ -23,6 +26,13 @@ define(function (require) {
 			this.inlineSubredditView = new InlineSubredditView({
 				watch: this.subreddit
 			});
+			this.embeddedView = null;
+			var EmbeddedView = embedded.identify(this.watch);
+			if (EmbeddedView) {
+				this.embeddedView = new EmbeddedView({
+					watch: this.watch
+				});
+			}
 		},
 		render: function () {
 			this.empty();
@@ -35,6 +45,7 @@ define(function (require) {
 			this.renderAuthor();
 			this.renderComments();
 			this.renderSubreddit();
+			this.renderEmbeddedMedia();
 		},
 		renderThumbnail: function () {
 			var thumbnail = this.watch.get('thumbnail');
@@ -92,8 +103,26 @@ define(function (require) {
 				.empty()
 				.append(this.inlineSubredditView.el);
 		},
+		renderEmbeddedMedia: function () {
+			if (this.embeddedView) {
+				this.embeddedView.setElement(this.$('.embedded').hide());
+				this.embeddedView.render();
+				this.$el.addClass('has-embedded');
+			}
+		},
+		handleClickThumbnail: function () {
+			var visible = this.$('.embedded').toggle().is(':visible');
+			this.$el.toggleClass('showing-embedded', visible);
+		},
 		getFaviconURL: function (url) {
 			return FAVICON_BASE_URL + encodeURIComponent(url);
+		},
+		start: function () {
+			this.$el.on('click', '.thumbnail', _.bind(this.handleClickThumbnail, this));
+		},
+		stop: function fn () {
+			fn.old.call(this);
+			this.$el.off('click', '.thumbnail');
 		}
 	});
 	return LinkView;
