@@ -46,13 +46,17 @@ define(function (require, exports) {
 	exports.getRedditListing = function (options, callback) {
 		var settings = _.extend({
 			page: null,
-			sort: null
+			sort: null,
+			t: null
 		}, options);
 		if (settings.page) {
-			settings.page = '/r/' + settings.page;
+			settings.page = '/r/' + settings.page + '/';
+		}
+		else {
+			settings.page = '/';
 		}
 		if (settings.sort) {
-			settings.page += '/' + settings.sort;
+			settings.page += settings.sort;
 			delete settings.sort;
 		}
 		exports.getListing(settings, callback);
