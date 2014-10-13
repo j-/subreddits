@@ -63,6 +63,19 @@ define(function (require) {
 	var HeaderView = require('views/HeaderView');
 	var header = new HeaderView();
 	header.render();
+	header.start();
+
+	header.on('sort', function (sort, t) {
+		var options = {
+			page: null,
+			sort: sort,
+			t: t
+		};
+		sync.getRedditListing(options, function (err, response) {
+			frontpage.set(response.data.children);
+			console.log(frontpage.get());
+		});
+	});
 
 	$(function () {
 		$(document.body).append(header.el);
