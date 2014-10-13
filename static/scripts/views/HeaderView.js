@@ -15,6 +15,9 @@ define(function (require) {
 			var sort = $target.data('sort');
 			var t = $target.data('t');
 			this.trigger('sort', sort, t);
+			this.$('a[data-sort]').parents('li').removeClass('active');
+			$target.parent('li').addClass('active');
+			$target.parents('.dropdown-submenu').addClass('active');
 		},
 		start: function () {
 			this.$el.on('click', 'a[data-sort]', _.bind(this.handleClickSort, this));
