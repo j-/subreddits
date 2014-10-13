@@ -42,7 +42,7 @@ define(function (require) {
 
 	var Listing = require('collections/Listing');
 	var frontpage = new Listing();
-	sync.getListing({ page: '/' }, function (err, response) {
+	sync.getListing({ page: '/', limit: 100 }, function (err, response) {
 		frontpage.set(response.data.children);
 		console.log(frontpage.get());
 	});
