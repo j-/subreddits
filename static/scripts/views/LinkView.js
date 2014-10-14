@@ -157,10 +157,16 @@ define(function (require) {
 		},
 		start: function () {
 			this.$el.on('click', '.thumbnail', _.bind(this.handleClickThumbnail, this));
+			if (this.embeddedView) {
+				this.embeddedView.start();
+			}
 		},
 		stop: function fn () {
 			fn.old.call(this);
 			this.$el.off('click', '.thumbnail');
+			if (this.embeddedView) {
+				this.embeddedView.stop();
+			}
 		}
 	});
 	return LinkView;
