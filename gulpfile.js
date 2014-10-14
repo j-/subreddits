@@ -54,3 +54,5 @@ gulp.task('scripts', function () {
 gulp.task('watch:less', ['less'], function () {
 	gulp.watch(STYLE_FILES, ['less']);
 });
+
+gulp.task('default', ['build']);
