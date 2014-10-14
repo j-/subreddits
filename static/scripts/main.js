@@ -42,15 +42,38 @@ define(function (require) {
 
 	var Listing = require('collections/Listing');
 	var frontpage = new Listing();
-	sync.getListing({ page: '/', limit: 100 }, function (err, response) {
-		frontpage.set(response.data.children);
-		console.log(frontpage.get());
-	});
 
-	var ListingView = require('views/ListingView');
+	var currentPage = '/';
+	var after = null;
+	var fetchMore = function (done) {
+		var options = {
+			page: currentPage,
+			after: after,
+			limit: 5
+		};
+		sync.getListing(options, function (err, response) {
+			if (!err) {
+				after = response.data.after;
+				frontpage.add(response.data.children);
+			}
+			if (typeof done === 'function') {
+				done(err);
+			}
+		});
+	};
+
+	fetchMore();
+
+	var ListingView = require('views/InfiniteScrollListingView');
 	var listingview = new ListingView({
 		id: 'listing',
-		watch: frontpage
+		watch: frontpage,
+		scrollThreshold: 1200,
+		scrollCallback: function (done) {
+			fetchMore(function (err) {
+				done();
+			});
+		}
 	});
 
 	listingview.render();
