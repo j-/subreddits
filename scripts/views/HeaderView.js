@@ -60,8 +60,8 @@ define(function (require) {
 		start: function () {
 			this.$el.on('click', 'a[data-sort]', _.bind(this.handleClickSort, this));
 		},
-		stop: function fn () {
-			fn.old.call(this);
+		stop: function () {
+			ok.$View.prototype.stop.call(this);
 			this.$el.off('click', 'a[data-sort]');
 		}
 	});

@@ -169,8 +169,8 @@ define(function (require) {
 				this.embeddedView.start();
 			}
 		},
-		stop: function fn () {
-			fn.old.call(this);
+		stop: function () {
+			ok.$View.prototype.stop.call(this);
 			this.$el.off('click', '.thumbnail');
 			if (this.embeddedView) {
 				this.embeddedView.stop();

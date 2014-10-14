@@ -61,8 +61,8 @@ define(function (require) {
 			this.listingView.start();
 			this.$scrollElement.on('scroll', this.handleScroll);
 		},
-		stop: function fn () {
-			fn.old.call(this);
+		stop: function () {
+			ok.$View.prototype.stop.call(this);
 			this.listingView.stop();
 			this.$scrollElement.off('scroll', this.handleScroll);
 		}

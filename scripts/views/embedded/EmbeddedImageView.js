@@ -3,8 +3,8 @@ define(function (require) {
 	var ResizableImageView = require('views/ResizableImageView');
 	var EmbeddedImageView = EmbeddedView.extend({
 		className: 'embedded-content embedded-image',
-		init: function fn () {
-			fn.old.apply(this, arguments);
+		init: function () {
+			EmbeddedView.prototype.init.apply(this, arguments);
 			this.href = this.watch.get('url');
 			this.url = EmbeddedImageView.getImageURL(this.href);
 			this.imageView = new ResizableImageView({
@@ -17,12 +17,12 @@ define(function (require) {
 			this.imageView.render();
 			this.$el.append(this.imageView.el);
 		},
-		start: function fn () {
-			fn.old.call(this);
+		start: function () {
+			EmbeddedView.prototype.start.call(this);
 			this.imageView.start();
 		},
-		stop: function fn () {
-			fn.old.call(this);
+		stop: function () {
+			EmbeddedView.prototype.stop.call(this);
 			this.imageView.stop();
 		}
 	});

@@ -15,7 +15,7 @@
     "jquery": "~2.1.1",
     "underscore": "~1.7.0",
     "text": "~2.0.12",
-    "ok": "git://github.com/j-/ok.git#~0.1.1",
+    "ok": "git://github.com/j-/ok.git#~0.2.0",
     "requirejs": "~2.1.15"
   }
 }

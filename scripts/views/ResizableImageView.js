@@ -76,8 +76,8 @@ define(function (require) {
 			this.$el.on('mousedown', '.drag-image', _.bind(this.handleMouseDown, this));
 			this.$el.on('click', _.bind(this.handleClick, this));
 		},
-		stop: function fn () {
-			fn.old.call(this);
+		stop: function () {
+			ok.$View.prototype.stop.call(this);
 			this.$el.off('mousedown', '.drag-image');
 			this.$el.off('click');
 		}

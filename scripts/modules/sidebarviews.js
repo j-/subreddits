@@ -6,8 +6,8 @@ define(function (require, exports) {
 	var InlineSubredditView = require('views/InlineSubredditView');
 
 	var SubredditTextView = InlineSubredditView.extend({
-		render: function fn () {
-			fn.old.call(this);
+		render: function () {
+			InlineSubredditView.prototype.render.call(this);
 			$(this.el).attr('tabindex', -1);
 		}
 	});
@@ -38,8 +38,8 @@ define(function (require, exports) {
 			$(this.el).on('mousedown', '.details', _.bind(this.handleMousedownDetails, this));
 			this.subredditIdView.start();
 		},
-		stop: function fn () {
-			fn.old.call(this);
+		stop: function () {
+			ok.View.prototype.stop.call(this);
 			$(this.el).off('mousedown', '.details');
 		}
 	});
