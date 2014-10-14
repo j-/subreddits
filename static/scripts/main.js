@@ -62,8 +62,6 @@ define(function (require) {
 		});
 	};
 
-	fetchMore();
-
 	var ListingView = require('views/InfiniteScrollListingView');
 	var listingview = new ListingView({
 		id: 'listing',
