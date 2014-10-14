@@ -4,6 +4,7 @@ define(function (require) {
 
 	var views = [
 		require('views/embedded/EmbeddedSelfTextView'),
+		require('views/embedded/EmbeddedImgurGalleryView'),
 		require('views/embedded/EmbeddedImageView')
 	];
 
