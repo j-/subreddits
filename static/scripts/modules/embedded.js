@@ -3,6 +3,7 @@ define(function (require) {
 	var _ = require('underscore');
 
 	var views = [
+		require('views/embedded/EmbeddedContentView'),
 		require('views/embedded/EmbeddedSelfTextView'),
 		require('views/embedded/EmbeddedImgurGalleryView'),
 		require('views/embedded/EmbeddedImageView')
