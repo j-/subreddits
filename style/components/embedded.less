@@ -16,9 +16,9 @@
 .link.stickied .embedded {
 	background: rgba(255, 255, 255, 0.8);
 }
-.link .embedded:empty {
-	display: none;
-}
-.link .embedded-selftext {
-	max-width: 60em;
+.embedded {
+	.embedded-selftext,
+	.embedded-image img {
+		max-width: 60em;
+	}
 }

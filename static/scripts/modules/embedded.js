@@ -3,7 +3,8 @@ define(function (require) {
 	var _ = require('underscore');
 
 	var views = [
-		require('views/embedded/EmbeddedSelfTextView')
+		require('views/embedded/EmbeddedSelfTextView'),
+		require('views/embedded/EmbeddedImageView')
 	];
 
 	var EmbeddedMediaController = ok.Controller.extend({
