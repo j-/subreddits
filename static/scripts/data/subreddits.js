@@ -97,7 +97,7 @@ define(function () {
 				{ display_name: 'subaru' },
 				{ display_name: 'autodetailing' },
 				{ display_name: 'carwraps' },
-				{ display_name: 'shittycarmods' },
+				{ display_name: 'shitty_car_mods' },
 				{ display_name: 'justrolledintotheshop' }
 			]
 		},
@@ -152,7 +152,8 @@ define(function () {
 			children: [
 				{ display_name: 'InternetIsBeautiful' },
 				{ display_name: 'glitch_art' },
-				{ display_name: 'whoahdude' }
+				{ display_name: 'whoahdude' },
+				{ display_name: 'SpaceBuckets' }
 			]
 		},
 		{
