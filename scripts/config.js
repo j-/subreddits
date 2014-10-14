@@ -1,4 +1,7 @@
-requirejs.config({
+(function () {
+
+var config = {
+	baseUrl: 'scripts',
 	paths: {
 		'jquery': '../bower_components/jquery/dist/jquery',
 		'underscore': '../bower_components/underscore/underscore',
@@ -34,4 +37,13 @@ requirejs.config({
 			'jquery': 'jquery'
 		}
 	}
-});
+};
+
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = config;
+}
+else if (typeof requirejs !== 'undefined' && requirejs.config) {
+	requirejs.config(config);
+}
+
+})();
