@@ -11,6 +11,10 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1",
+    "underscore": "~1.7.0",
+    "text": "~2.0.12",
+    "ok": "git://github.com/j-/ok.git#~0.1.1"
   }
 }
