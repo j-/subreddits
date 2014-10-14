@@ -43,12 +43,16 @@ gulp.task('less', function () {
 		.pipe(gulp.dest(STYLE_DEST));
 });
 
-gulp.task('scripts', function () {
+gulp.task('scripts', function (done) {
 	var requirejs = require('requirejs');
 	var config = require('./scripts/config');
 	config.name = 'config';
 	config.dir = SCRIPTS_DEST;
-	requirejs.optimize(config);
+	requirejs.optimize(config, function () {
+		done();
+	}, function (err) {
+		done(err);
+	});
 });
 
 gulp.task('watch:less', ['less'], function () {
