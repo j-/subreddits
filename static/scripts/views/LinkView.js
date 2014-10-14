@@ -48,14 +48,17 @@ define(function (require) {
 			this.renderEmbeddedMedia();
 		},
 		renderThumbnail: function () {
-			var thumbnail = this.watch.get('thumbnail');
-			if (thumbnail) {
-				this.$('.thumbnail')
-					.css('background-image', 'url(' + thumbnail + ')')
+			var url = this.watch.get('url');
+			var thumbnailUrl = this.watch.get('thumbnail');
+			var $thumbnail = this.$('.thumbnail')
+				.attr('href', url);
+			if (thumbnailUrl) {
+				$thumbnail
+					.css('background-image', 'url(' + thumbnailUrl + ')')
 					.removeClass('empty');
 			}
 			else {
-				this.$('.thumbnail')
+				$thumbnail
 					.css('background-image', null)
 					.addClass('empty');
 			}
