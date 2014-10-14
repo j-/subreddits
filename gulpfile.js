@@ -1,5 +1,8 @@
 var gulp = require('gulp');
 
+const ASSETS = 'assets/**/*';
+const STATIC = 'static/**/*';
+const DIR_BUILD = 'build/';
 const STYLE_FILES = 'style/**/*.less';
 const STYLE_SOURCE = 'style/main.less';
 const STYLE_DEST = 'assets/style/';
@@ -8,9 +11,26 @@ const BOOTSTRAP_FONTS = 'bower_components/bootstrap/fonts/*';
 const FONTS_DEST = 'assets/fonts/';
 const SCRIPTS_DEST = 'assets/scripts/';
 
+gulp.task('build', function (done) {
+	var run = require('run-sequence');
+	run('clean', 'copy', 'compile', 'dist', done);
+});
+
+gulp.task('clean', function (done) {
+	var del = require('del');
+	del(DIR_BUILD, done);
+});
+
+gulp.task('compile', ['less', 'scripts']);
+
 gulp.task('copy', function () {
 	gulp.src(BOOTSTRAP_FONTS)
 		.pipe(gulp.dest(FONTS_DEST));
+});
+
+gulp.task('dist', function () {
+	return gulp.src([ASSETS, STATIC])
+		.pipe(gulp.dest(DIR_BUILD));
 });
 
 gulp.task('less', function () {
