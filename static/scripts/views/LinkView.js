@@ -40,6 +40,7 @@ define(function (require) {
 			this.renderThumbnail();
 			this.renderTitle();
 			this.renderURL();
+			this.renderDomain();
 			this.renderScore();
 			this.renderCreated();
 			this.renderAuthor();
@@ -73,6 +74,13 @@ define(function (require) {
 				.attr('href', url);
 			this.$('.favicon')
 				.attr('src', this.getFaviconURL(url));
+		},
+		renderDomain: function () {
+			var domain = this.watch.get('domain');
+			var href = 'http://www.reddit.com/domain/' + domain;
+			this.$('.domain')
+				.text(domain)
+				.attr('href', href);
 		},
 		renderScore: function () {
 			var score = this.watch.get('score');
