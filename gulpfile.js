@@ -10,6 +10,7 @@ const STYLE_INCLUDES = ['bower_components/bootstrap/less/'];
 const BOOTSTRAP_FONTS = 'bower_components/bootstrap/fonts/*';
 const FONTS_DEST = 'assets/fonts/';
 const SCRIPTS_DEST = 'assets/scripts/';
+const BOWER_COMPONENTS = 'bower_components/**/*';
 
 gulp.task('build', function (done) {
 	var run = require('run-sequence');
@@ -24,12 +25,14 @@ gulp.task('clean', function (done) {
 gulp.task('compile', ['less', 'scripts']);
 
 gulp.task('copy', function () {
-	gulp.src(BOOTSTRAP_FONTS)
+	return gulp.src(BOOTSTRAP_FONTS)
 		.pipe(gulp.dest(FONTS_DEST));
 });
 
 gulp.task('dist', function () {
-	return gulp.src([ASSETS, STATIC])
+	gulp.src([ASSETS, STATIC])
+		.pipe(gulp.dest(DIR_BUILD));
+	gulp.src(BOWER_COMPONENTS, { base: './' })
 		.pipe(gulp.dest(DIR_BUILD));
 });
 
@@ -56,7 +59,7 @@ gulp.task('scripts', function (done) {
 });
 
 gulp.task('watch:less', ['less'], function () {
-	gulp.watch(STYLE_FILES, ['less']);
+	return gulp.watch(STYLE_FILES, ['less']);
 });
 
 gulp.task('default', ['build']);
