@@ -13,6 +13,15 @@ define(function (require) {
 			else {
 				throw new Error('Listing child kind not recognised');
 			}
+		},
+		identify: function (item) {
+			var items = this.items;
+			for (var i = 0, l = items.length; i < l; i++) {
+				if (items[i].get('id') === item.get('id')) {
+					return items[i];
+				}
+			}
+			return null;
 		}
 	});
 	return Listing;
