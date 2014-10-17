@@ -2,6 +2,8 @@ define(function (require, exports) {
 	var ok = require('ok');
 	require('ok.views');
 	var $ = require('jquery');
+	var _ = require('underscore');
+	var pagerouter = require('modules/pagerouter');
 	var SubredditModel = require('models/SubredditModel');
 	var InlineSubredditView = require('views/InlineSubredditView');
 
@@ -54,6 +56,19 @@ define(function (require, exports) {
 				.attr('tabindex', -1)
 				.attr('href', 'http://www.reddit.com/r/' + subreddits)
 				.text(name);
+		},
+		handleClick: function (e) {
+			e.preventDefault();
+			var subreddits = this.watch.toString();
+			pagerouter.go('/r/' + subreddits);
+		},
+		start: function () {
+			ok.SimpleView.prototype.start.call(this);
+			$(this.el).on('click', _.bind(this.handleClick, this));
+		},
+		stop: function () {
+			ok.SimpleView.prototype.stop.call(this);
+			$(this.el).off('click');
 		}
 	});
 

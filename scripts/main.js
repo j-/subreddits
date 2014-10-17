@@ -101,4 +101,8 @@ define(function (require) {
 	$(function () {
 		$(document.body).append(header.el);
 	});
+
+	var pagerouter = require('modules/pagerouter');
+	pagerouter.start();
+	pagerouter.parseCurrent();
 });

@@ -7,6 +7,7 @@ define(function (require) {
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
 	var embedded = require('modules/embedded');
+	var pagerouter = require('modules/pagerouter');
 	var html = require('text!templates/Link.html');
 
 	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
@@ -14,6 +15,7 @@ define(function (require) {
 	var LinkView = ok.$View.extend({
 		className: 'link',
 		init: function () {
+			_.bindAll(this, 'handleClickThumbnail', 'handleClickComments', 'handleClickDomain');
 			this.author = new AccountModel({
 				name: this.watch.get('author')
 			});
@@ -65,8 +67,10 @@ define(function (require) {
 			}
 		},
 		renderTitle: function () {
+			var title = this.watch.get('title');
+			title = _.unescape(title);
 			this.$('.title-text')
-				.text(_.unescape(this.watch.get('title')));
+				.text(title);
 		},
 		renderURL: function () {
 			var url = this.watch.get('url');
@@ -160,18 +164,36 @@ define(function (require) {
 				this.toggleEmbedded();
 			}
 		},
+		handleClickComments: function (e) {
+			e.preventDefault();
+			var id = this.watch.get('id');
+			pagerouter.go('/comments/' + id);
+		},
+		handleClickDomain: function (e) {
+			e.preventDefault();
+			var domain = this.watch.get('domain');
+			pagerouter.go('/domain/' + domain);
+		},
 		getFaviconURL: function (url) {
 			return FAVICON_BASE_URL + encodeURIComponent(url);
 		},
 		start: function () {
-			this.$el.on('click', '.thumbnail', _.bind(this.handleClickThumbnail, this));
+			this.$el.on('click', '.thumbnail', this.handleClickThumbnail);
+			this.$el.on('click', '.comments', this.handleClickComments);
+			this.$el.on('click', '.domain', this.handleClickDomain);
+			this.inlineSubredditView.start();
+			this.inlineUserView.start();
 			if (this.embeddedView) {
 				this.embeddedView.start();
 			}
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
-			this.$el.off('click', '.thumbnail');
+			this.$el.off('click', '.thumbnail', this.handleClickThumbnail);
+			this.$el.off('click', '.comments', this.handleClickComments);
+			this.$el.off('click', '.domain', this.handleClickDomain);
+			this.inlineSubredditView.stop();
+			this.inlineUserView.stop();
 			if (this.embeddedView) {
 				this.embeddedView.stop();
 			}

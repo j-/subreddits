@@ -9,7 +9,9 @@ var config = {
 		'ok.views': '../bower_components/ok/ok.views',
 		'ok.dollarview': '../bower_components/ok/ok.dollarview',
 		'text': '../bower_components/text/text',
-		'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap'
+		'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap',
+		'signals': '../bower_components/js-signals/dist/signals',
+		'crossroads': '../bower_components/crossroads.js/dist/crossroads'
 	},
 	shim: {
 		'ok': {
