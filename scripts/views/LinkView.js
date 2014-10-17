@@ -159,20 +159,26 @@ define(function (require) {
 			}
 		},
 		handleClickThumbnail: function (e) {
-			e.preventDefault();
-			if (this.embeddedView) {
-				this.toggleEmbedded();
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				if (this.embeddedView) {
+					this.toggleEmbedded();
+				}
 			}
 		},
 		handleClickComments: function (e) {
-			e.preventDefault();
-			var id = this.watch.get('id');
-			pagerouter.go('/comments/' + id);
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				var id = this.watch.get('id');
+				pagerouter.go('/comments/' + id);
+			}
 		},
 		handleClickDomain: function (e) {
-			e.preventDefault();
-			var domain = this.watch.get('domain');
-			pagerouter.go('/domain/' + domain);
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				var domain = this.watch.get('domain');
+				pagerouter.go('/domain/' + domain);
+			}
 		},
 		getFaviconURL: function (url) {
 			return FAVICON_BASE_URL + encodeURIComponent(url);

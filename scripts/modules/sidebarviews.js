@@ -58,9 +58,11 @@ define(function (require, exports) {
 				.text(name);
 		},
 		handleClick: function (e) {
-			e.preventDefault();
-			var subreddits = this.watch.toString();
-			pagerouter.go('/r/' + subreddits);
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				var subreddits = this.watch.toString();
+				pagerouter.go('/r/' + subreddits);
+			}
 		},
 		start: function () {
 			ok.SimpleView.prototype.start.call(this);

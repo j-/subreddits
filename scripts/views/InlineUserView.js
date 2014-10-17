@@ -24,9 +24,11 @@ define(function (require) {
 				.appendTo(this.$el);
 		},
 		handleClick: function (e) {
-			e.preventDefault();
-			var name = this.watch.get('name');
-			pagerouter.go('/user/' + name);
+			if (!e.ctrlKey) {
+				e.preventDefault();
+				var name = this.watch.get('name');
+				pagerouter.go('/user/' + name);
+			}
 		},
 		start: function () {
 			this.$el.on('click', this.handleClick);
