@@ -19,6 +19,14 @@ define(function (require) {
 				.attr('target', '_blank')
 				.append(this.$img);
 		},
+		setImageURL: function (url) {
+			this.url = url;
+			this.$img.attr('src', this.url);
+		},
+		setAnchorHref: function (href) {
+			this.href = href;
+			this.$el.attr('href', this.href);
+		},
 		calculateDistance: function (x, y) {
 			return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 		},
