@@ -14,6 +14,7 @@ define(function (require) {
 			if (!this.canFetch) {
 				return;
 			}
+			this.showLoading();
 			this.canFetch = false;
 			var url = this.watch.get('url');
 			var match = url.match(EmbeddedGithubReadmeView.githubProjectExp);
@@ -29,6 +30,7 @@ define(function (require) {
 					this.renderContent(decoded);
 				},
 				error: function (xhr, status, message) {
+					this.showError();
 					this.canFetch = true;
 				}
 			});
@@ -36,6 +38,16 @@ define(function (require) {
 		renderContent: function (content) {
 			var encoded = marked(content);
 			this.$el.html(encoded);
+		},
+		showLoading: function () {
+			var $loading = $.create('span')
+				.addClass('text-muted')
+				.text('Loading\u2026');
+			this.empty();
+			this.$el.append($loading);
+		},
+		showError: function () {
+			this.$el.text('There was an error loading this readme');
 		}
 	});
 	EmbeddedGithubReadmeView.githubProjectExp = /github.com\/(.*?)\/(.*?)(?:\/|$)/i;
