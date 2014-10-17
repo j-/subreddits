@@ -18,7 +18,6 @@ define(function (require) {
 				watch: this.watch
 			});
 			this.canTrigger = true;
-			this.testScroll();
 		},
 		render: function () {
 			this.empty();
