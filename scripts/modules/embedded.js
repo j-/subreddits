@@ -8,7 +8,8 @@ define(function (require) {
 		require('views/embedded/EmbeddedImgurGalleryView'),
 		require('views/embedded/EmbeddedImageView'),
 		require('views/embedded/EmbeddedGithubReadmeView'),
-		require('views/embedded/EmbeddedDeviantartView')
+		require('views/embedded/EmbeddedDeviantartView'),
+		require('views/embedded/EmbeddedFacebookView')
 	];
 
 	var EmbeddedMediaController = ok.Controller.extend({
