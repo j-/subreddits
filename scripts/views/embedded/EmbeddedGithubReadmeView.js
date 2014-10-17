@@ -3,7 +3,7 @@ define(function (require) {
 	var $ = require('jquery');
 	var marked = require('marked');
 	var EmbeddedGithubReadmeView = EmbeddedView.extend({
-		className: 'embedded-content embedded-content',
+		className: 'embedded-content embedded-githubreadme',
 		init: function () {
 			this.canFetch = true;
 		},
