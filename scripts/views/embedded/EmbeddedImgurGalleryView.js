@@ -14,9 +14,8 @@ define(function (require) {
 					width: 600,
 					height: 550
 				});
-			this.$el
-				.empty()
-				.append($iframe);
+			this.empty();
+			this.$el.append($iframe);
 		}
 	});
 	EmbeddedImgurGalleryView.domainExp = /^https?:\/\/(?:www|i|m\.)?imgur.com/i;

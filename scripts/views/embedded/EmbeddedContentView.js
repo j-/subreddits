@@ -5,9 +5,8 @@ define(function (require) {
 		render: function () {
 			var html = this.watch.get('media_embed').content;
 			html = _.unescape(html);
-			this.$el
-				.empty()
-				.html(html);
+			this.empty();
+			this.$el.html(html);
 		}
 	});
 	EmbeddedContentView.identify = function (linkModel) {
