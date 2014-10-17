@@ -2,6 +2,7 @@ define(function (require) {
 	require('ok.views');
 	require('bootstrap');
 
+	var _ = require('underscore');
 	var subreddits = require('data/subreddits');
 
 	var MultiredditCollection = require('collections/MultiredditCollection');
@@ -45,13 +46,14 @@ define(function (require) {
 
 	var currentPage = '/';
 	var after = null;
+	var settings = null;
 	var fetchMore = function (done) {
-		var options = {
+		var options = _.extend({
 			page: currentPage,
 			after: after,
 			limit: 5
-		};
-		sync.getListing(options, function (err, response) {
+		}, settings);
+		sync.getRedditListing(options, function (err, response) {
 			if (!err) {
 				after = response.data.after;
 				frontpage.add(response.data.children);
@@ -86,23 +88,43 @@ define(function (require) {
 	header.render();
 	header.start();
 
-	header.on('sort', function (sort, t) {
-		var options = {
-			page: null,
-			sort: sort,
-			t: t
-		};
-		sync.getRedditListing(options, function (err, response) {
-			frontpage.set(response.data.children);
-			console.log(frontpage.get());
-		});
-	});
-
 	$(function () {
 		$(document.body).append(header.el);
 	});
 
 	var pagerouter = require('modules/pagerouter');
 	pagerouter.start();
+	pagerouter.on('route:subreddit', function (subreddit) {
+		settings = null;
+		$(document.body).scrollTop(0);
+		frontpage.empty();
+		currentPage = subreddit;
+		after = null;
+		fetchMore(function () {
+			listingview.testScroll();
+		});
+	});
+	pagerouter.on('route:frontpage', function () {
+		settings = null;
+		$(document.body).scrollTop(0);
+		frontpage.empty();
+		currentPage = null;
+		after = null;
+		fetchMore(function () {
+			listingview.testScroll();
+		});
+	});
+	header.on('sort', function (sort, t) {
+		settings = {
+			sort: sort,
+			t: t
+		};
+		$(document.body).scrollTop(0);
+		frontpage.empty();
+		after = null;
+		fetchMore(function () {
+			listingview.testScroll();
+		});
+	});
 	pagerouter.parseCurrent();
 });
