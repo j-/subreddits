@@ -39,40 +39,31 @@ define(function (require) {
 		all.set(subreddits);
 	};
 
-	var sync = window.sync = require('modules/sync');
-
 	var Listing = require('collections/Listing');
-	var frontpage = new Listing();
+	var ListingController = require('controllers/ListingController');
+	var pagerouter = require('modules/pagerouter');
 
-	var currentPage = '/';
-	var after = null;
-	var settings = null;
-	var fetchMore = function (done) {
-		var options = _.extend({
-			page: currentPage,
-			after: after,
-			limit: 5
-		}, settings);
-		sync.getRedditListing(options, function (err, response) {
-			if (!err) {
-				after = response.data.after;
-				frontpage.add(response.data.children);
-			}
-			if (typeof done === 'function') {
-				done(err);
-			}
-		});
-	};
+	var listing = new Listing();
+	var controller = new ListingController({
+		listing: listing,
+		router: pagerouter
+	});
 
 	var ListingView = require('views/InfiniteScrollListingView');
 	var listingview = new ListingView({
 		id: 'listing',
-		watch: frontpage,
+		watch: listing,
+		controller: controller,
 		scrollThreshold: 1200,
 		scrollCallback: function (done) {
-			fetchMore(function (err) {
-				done();
-			});
+			if (!controller.end) {
+				controller.loadMore({
+					limit: 5
+				}, done);
+			}
+			else {
+				controller.on('listing', done);
+			}
 		}
 	});
 
@@ -91,40 +82,4 @@ define(function (require) {
 	$(function () {
 		$(document.body).append(header.el);
 	});
-
-	var pagerouter = require('modules/pagerouter');
-	pagerouter.start();
-	pagerouter.on('route:subreddit', function (subreddit) {
-		settings = null;
-		$(document.body).scrollTop(0);
-		frontpage.empty();
-		currentPage = subreddit;
-		after = null;
-		fetchMore(function () {
-			listingview.testScroll();
-		});
-	});
-	pagerouter.on('route:frontpage', function () {
-		settings = null;
-		$(document.body).scrollTop(0);
-		frontpage.empty();
-		currentPage = null;
-		after = null;
-		fetchMore(function () {
-			listingview.testScroll();
-		});
-	});
-	header.on('sort', function (sort, t) {
-		settings = {
-			sort: sort,
-			t: t
-		};
-		$(document.body).scrollTop(0);
-		frontpage.empty();
-		after = null;
-		fetchMore(function () {
-			listingview.testScroll();
-		});
-	});
-	pagerouter.parseCurrent();
 });

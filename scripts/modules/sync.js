@@ -27,7 +27,7 @@ define(function (require, exports) {
 		// make sure callback is a function
 		callback = typeof callback === 'function' ? callback : _.identity;
 		// make call
-		$.ajax({
+		return $.ajax({
 			url: page,
 			dataType: 'jsonp',
 			jsonp: 'jsonp',
@@ -59,7 +59,7 @@ define(function (require, exports) {
 			settings.page += settings.sort;
 			delete settings.sort;
 		}
-		exports.getListing(settings, callback);
+		return exports.getListing(settings, callback);
 	};
 
 	exports.getUserListing = function (options, callback) {
@@ -67,12 +67,12 @@ define(function (require, exports) {
 		if (settings.page) {
 			settings.page = '/user/' + settings.page;
 		}
-		exports.getListing(settings, callback);
+		return exports.getListing(settings, callback);
 	};
 
 	exports.getSubredditAbout = function (options, callback) {
 		var settings = _.extend({}, options);
 		settings.page += '/about';
-		exports.getRedditListing(settings, callback);
+		return exports.getRedditListing(settings, callback);
 	};
 });
