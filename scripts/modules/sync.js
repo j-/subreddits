@@ -29,7 +29,7 @@ define(function (require, exports) {
 		// make call
 		$.ajax({
 			url: page,
-			dataType: 'json',
+			dataType: 'jsonp',
 			jsonp: 'jsonp',
 			data: settings,
 			success: function (response) {
