@@ -38,7 +38,10 @@ define(function (require) {
 		},
 		render: function () {
 			this.empty();
-			this.$el.html(html);
+			this.$el
+				.html(html)
+				.toggleClass('over18', this.watch.get('over_18'))
+				.toggleClass('stickied', this.watch.get('stickied'));
 			this.renderThumbnail();
 			this.renderTitle();
 			this.renderURL();
