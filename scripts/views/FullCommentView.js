@@ -37,6 +37,9 @@ define(function (require) {
 			this.renderLinkURL();
 			this.renderLinkAuthor();
 			this.renderLinkSubreddit();
+			this.renderCommentAuthor();
+			this.renderScore();
+			this.renderTime();
 			this.renderBody();
 		},
 		renderLinkTitle: function () {
@@ -55,6 +58,21 @@ define(function (require) {
 		renderLinkSubreddit: function () {
 			this.inlineSubredditView.setElement(this.$('.link-subreddit'));
 			this.inlineSubredditView.render();
+		},
+		renderCommentAuthor: function () {
+			this.inlineCommentAuthorUserView.setElement(this.$('.comment-author'));
+			this.inlineCommentAuthorUserView.render();
+		},
+		renderScore: function () {
+			var score = this.watch.get('score');
+			score += ' ' + (score === 1 ? 'point' : 'points');
+			this.$('.comment-score').text(score);
+		},
+		renderTime: function () {
+			var createdUtc = this.watch.get('created_utc');
+			var createdDate = new Date(createdUtc * 1000);
+			var time = createdDate.toLocaleString();
+			this.$('.comment-time').text(time);
 		},
 		renderBody: function () {
 			var html = this.watch.get('body_html');
