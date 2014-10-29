@@ -1,0 +1,1 @@
+define(["require","models/ThingModel"],function(e){var t=e("models/ThingModel"),n="[deleted]",r=t.extend({defaults:{kind:"t2"},getUserPageURL:function(){return"http://www.reddit.com/user/"+this.get("name")},isDeleted:function(){return this.get("name")===n}});return r});

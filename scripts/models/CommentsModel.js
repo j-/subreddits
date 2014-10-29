@@ -1,0 +1,1 @@
+define(["require","ok","models/LinkModel","collections/Replies"],function(e){var t=e("ok"),n=e("models/LinkModel"),r=e("collections/Replies"),i=t.Map.extend({schema:{link:n,replies:r},defaults:{link:null,replies:null}});return i});

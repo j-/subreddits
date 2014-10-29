@@ -1,0 +1,1 @@
+define(["require","ok","ok.dollarview","moment"],function(e){var t=e("ok");e("ok.dollarview");var n=e("moment"),r=t.$View.extend({render:function(){var e=this.watch.get(),t=new Date,r=e-t,i=n.duration(r).humanize(!0);this.$el.text(i).attr("title",e.toLocaleString()).attr("datetime",e.toISOString())}});return r});

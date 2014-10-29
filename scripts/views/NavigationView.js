@@ -1,0 +1,1 @@
+define(["require","ok","ok.dollarview","views/SubredditSelector"],function(e){var t=e("ok");e("ok.dollarview");var n=e("views/SubredditSelector"),r=t.$View.extend({className:"navigation",init:function(){this.subredditsView=this.addChildView(n,{watch:this.watch})},render:function(){this.empty(),this.renderChildViews(),this.$el.append(this.subredditsView.$el)}});return r});

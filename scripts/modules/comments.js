@@ -1,0 +1,1 @@
+define(["require","exports","module","ok","ok.dollarview","models/ThingModel","properties/UTCDate"],function(e,t){var n=e("ok");e("ok.dollarview");var r=e("models/ThingModel"),i=e("properties/UTCDate"),s=n.Collection.extend(),o=r.extend({defaults:{kind:"t1"},schema:{created_utc:i,replies:s}});s.defaultConstructor=o,t.Replies=s,t.CommentModel=o});

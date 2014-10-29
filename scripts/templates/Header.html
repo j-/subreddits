@@ -1,0 +1,83 @@
+<div class="container-fluid">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">
+			<span class="glyphicon glyphicon-home"></span>
+			<span class="button-text">Subreddits</span>
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Sort">
+					<span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+					<span class="button-text sorting-by">Hot</span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" role="menu">
+					<li class="active"><a href="#" data-sort="hot">Hot</a></li>
+					<li><a href="#" data-sort="new">New</a></li>
+					<li><a href="#" data-sort="rising">Rising</a></li>
+					<li class="dropdown-submenu">
+						<a href="#" data-sort="controversial">Controversial</a>
+						<ul class="dropdown-menu">
+							<li><a href="#" data-sort="controversial" data-t="hour">This hour</a></li>
+							<li><a href="#" data-sort="controversial" data-t="day">Today</a></li>
+							<li><a href="#" data-sort="controversial" data-t="week">This week</a></li>
+							<li><a href="#" data-sort="controversial" data-t="month">This month</a></li>
+							<li><a href="#" data-sort="controversial" data-t="year">This year</a></li>
+							<li><a href="#" data-sort="controversial" data-t="all">All time</a></li>
+						</ul>
+					</li>
+					<li class="dropdown-submenu">
+						<a href="#" data-sort="top">Top</a>
+						<ul class="dropdown-menu">
+							<li><a href="#" data-sort="top" data-t="hour">This hour</a></li>
+							<li><a href="#" data-sort="top" data-t="day">Today</a></li>
+							<li><a href="#" data-sort="top" data-t="week">This week</a></li>
+							<li><a href="#" data-sort="top" data-t="month">This month</a></li>
+							<li><a href="#" data-sort="top" data-t="year">This year</a></li>
+							<li><a href="#" data-sort="top" data-t="all">All time</a></li>
+						</ul>
+					</li>
+					<li><a href="#" data-sort="gilded">Gilded</a></li>
+					<li><a href="#" data-sort="ads">Promoted</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="action-refresh">
+					<span class="glyphicon glyphicon-refresh"></span>
+					<span class="button-text">Refresh</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="action-expandtoggle">
+					<span class="glyphicon glyphicon-plus"></span>
+					<span class="button-text">Expand all</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="#" class="action-user">
+					<span class="glyphicon glyphicon-user"></span>
+					<span class="button-text sr-only">User</span>
+				</a>
+			</li>
+		</ul>
+		<form class="navbar-form navbar-right search-form" role="search">
+			<div class="form-group">
+				<input type="text" class="form-control search" placeholder="Search">
+			</div>
+			<button type="submit" class="search-button">
+				<span class="glyphicon glyphicon-search"></span>
+				<span class="button-text sr-only">Search</span>
+			</button>
+		</form>
+	</div>
+</div>

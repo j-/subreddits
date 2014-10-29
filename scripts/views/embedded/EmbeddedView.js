@@ -1,0 +1,1 @@
+define(["require","ok","ok.dollarview"],function(e){var t=e("ok");e("ok.dollarview");var n=t.$View.extend({className:"embedded-content"});return n.identify=function(){return!1},n});

@@ -1,0 +1,1 @@
+define(["require","jquery"],function(e){var t=e("jquery");return t.create=function(e){return t(document.createElement(e))},t.textNode=function(e){return t(document.createTextNode(e))},t});

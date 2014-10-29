@@ -1,0 +1,1 @@
+define(["require","models/ThingModel"],function(e){var t=e("models/ThingModel"),n=t.extend({defaults:{kind:"t5",display_name:null},toString:function(){return this.get("display_name")}});return n});

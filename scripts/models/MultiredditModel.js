@@ -1,0 +1,1 @@
+define(["require","modules/multireddits"],function(e){var t=e("modules/multireddits"),n=t.MultiredditModel;return n});

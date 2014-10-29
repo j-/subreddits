@@ -1,0 +1,1 @@
+define(["require","ok","underscore","views/embedded/SelfText"],function(e){var t=e("ok"),n=e("underscore"),r=[e("views/embedded/SelfText")],i=t.Controller.extend({identify:function(e){return n.find(r,function(t){return t.idenfify(e)})}});return new i});

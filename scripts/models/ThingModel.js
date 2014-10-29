@@ -1,0 +1,1 @@
+define(["require","ok"],function(e){var t=e("ok"),n=t.Map.extend({setMap:function(e){return e&&typeof e.kind=="string"&&e.data?t.Map.prototype.setMap.call(this,e.data):t.Map.prototype.setMap.call(this,e)}});return n});

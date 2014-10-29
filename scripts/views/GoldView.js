@@ -1,0 +1,1 @@
+define(["require","ok","ok.dollarview"],function(e){var t=e("ok");e("ok.dollarview");var n=t.$View.extend({render:function(){var e=this.watch.get();this.empty(),this.$el.toggle(e>0),e>1&&this.$el.text("×"+e)}});return n});

@@ -1,0 +1,1 @@
+define(["require","ok","views/SubredditView","views/MultiredditView","models/SubredditModel"],function(e){var t=e("ok"),n=e("views/SubredditView"),r=e("views/MultiredditView"),i=e("models/SubredditModel"),s=t.CollectionView.extend({tagName:"ul",className:"subreddits",defaultConstructor:n,getConstructor:function(e){return e instanceof i?n:r}});return s});

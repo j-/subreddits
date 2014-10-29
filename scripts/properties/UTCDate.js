@@ -1,0 +1,1 @@
+define(["require","ok"],function(e){var t=e("ok"),n=t.Property.extend({get:function(){var e=this.getValue(),t=new Date(e*1e3);return t}});return n});

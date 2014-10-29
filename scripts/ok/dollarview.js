@@ -1,0 +1,1 @@
+(function(e,t){e.$View=e.View.extend({$:function(e){return this.$el.find(e)},setElement:function(n){n instanceof t&&(n=n.get(0)),e.View.prototype.setElement.call(this,n),this.$el=t(n)}})})(okaylib,jQuery||Zepto||ender||$);

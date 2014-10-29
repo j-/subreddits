@@ -1,0 +1,1 @@
+define(["require","views/embedded/EmbeddedView"],function(e){var t=e("views/embedded/EmbeddedView"),n=t.extend({className:"embedded-content embedded-content",render:function(){var e=this.watch.get("media_embed").content;e=_.unescape(e),this.empty(),this.$el.html(e)}});return n.identify=function(e){var t=e.get("media_embed");return t&&typeof t.content=="string"},n});

@@ -1,0 +1,1 @@
+define(["require","ok"],function(e){var t=e("ok");return window.ok=t,window.okaylib=t,t});

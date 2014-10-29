@@ -1,0 +1,1 @@
+define(["require","ok"],function(e){var t=e("ok"),n=t.Property.extend({get:function(){var e=this.getValue();switch(e){case"self":case"default":case"nsfw":case"":return null;default:return e}}});return n});

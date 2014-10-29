@@ -1,0 +1,1 @@
+define(["require","ok","ok.dollarview","views/LinkView"],function(e){var t=e("ok");e("ok.dollarview");var n=e("views/LinkView"),r=t.$View.extend({init:function(){this.linkView=this.addChildView(n,{watch:this.watch.property("link")})},render:function(){this.empty(),this.renderChildViews(),this.$el.append(this.linkView.$el)}});return r});

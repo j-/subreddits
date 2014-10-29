@@ -1,0 +1,1 @@
+define(["require","modules/comments"],function(e){var t=e("modules/comments"),n=t.CommentModel;return n});
