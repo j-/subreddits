@@ -7,6 +7,7 @@ define(function (require) {
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
 	var html = require('text!templates/FullComment.html');
+	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
 	var FullCommentView = ok.$View.extend({
 		className: 'comment full-comment',
 		init: function () {
@@ -48,11 +49,12 @@ define(function (require) {
 		renderLinkTitle: function () {
 			var html = this.watch.get('link_title');
 			html = _.unescape(html);
-			this.$('.link-title').html(html);
+			this.$('.link-title-text').html(html);
 		},
 		renderLinkURL: function () {
 			var url = this.watch.get('link_url');
 			this.$('.link-title').attr('href', url);
+			this.$('.favicon').attr('src', this.getFaviconURL(url));
 		},
 		renderLinkAuthor: function () {
 			this.inlineLinkAuthorUserView.setElement(this.$('.link-author'));
@@ -98,6 +100,9 @@ define(function (require) {
 			var linkId = this.watch.get('link_id').substring(3);
 			var href = 'http://www.reddit.com/comments/' + linkId;
 			this.$('.actions .full-comments').attr('href', href);
+		},
+		getFaviconURL: function (url) {
+			return FAVICON_BASE_URL + encodeURIComponent(url);
 		},
 		start: function () {
 			this.stop();
