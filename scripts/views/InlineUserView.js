@@ -11,10 +11,16 @@ define(function (require) {
 			_.bindAll(this, 'handleClick');
 		},
 		render: function () {
+			if (this.watch.isDeleted()) {
+				this.$el.addClass('deleted');
+				this.renderDeleted();
+				return;
+			}
 			var url = this.watch.getUserPageURL();
 			var name = this.watch.get('name');
+			this.empty();
 			this.$el
-				.empty()
+				.removeClass('deleted')
 				.attr('href', url);
 			$.textNode('/u/')
 				.appendTo(this.$el);
@@ -23,7 +29,16 @@ define(function (require) {
 				.text(name)
 				.appendTo(this.$el);
 		},
+		renderDeleted: function () {
+			this.$el
+				.text('[deleted]')
+				.attr('href', null);
+		},
 		handleClick: function (e) {
+			if (this.watch.isDeleted()) {
+				e.preventDefault();
+				return;
+			}
 			if (!e.ctrlKey) {
 				e.preventDefault();
 				var name = this.watch.get('name');
@@ -31,6 +46,7 @@ define(function (require) {
 			}
 		},
 		start: function () {
+			this.stop();
 			this.$el.on('click', this.handleClick);
 		},
 		stop: function () {
