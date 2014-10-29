@@ -24,7 +24,7 @@ define(function (require) {
 			this.$el.html(html);
 		}
 	});
-	EmbeddedFacebookView.hostExp = /^https?:\/\/(?:.*?\.)?facebook\.com\//;
+	EmbeddedFacebookView.hostExp = /^https?:\/\/(?:.*?\.)?facebook\.com\/(?:notes\/)/;
 	EmbeddedFacebookView.identify = function (linkModel) {
 		var url = linkModel.get('url');
 		return EmbeddedFacebookView.hostExp.test(url);
