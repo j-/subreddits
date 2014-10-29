@@ -13,7 +13,8 @@ var config = {
 		'signals': '../bower_components/js-signals/dist/signals',
 		'crossroads': '../bower_components/crossroads.js/dist/crossroads',
 		'marked': '../bower_components/marked/lib/marked',
-		'moment': '../bower_components/moment/moment'
+		'moment': '../bower_components/moment/moment',
+		'bluebird': '../bower_components/bluebird/js/browser/bluebird'
 	},
 	shim: {
 		'ok': {
