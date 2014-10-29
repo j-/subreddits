@@ -41,6 +41,9 @@ define(function (require) {
 			this.renderScore();
 			this.renderTime();
 			this.renderBody();
+			this.renderPermalink();
+			this.renderContextLink();
+			this.renderFullCommentsLink();
 		},
 		renderLinkTitle: function () {
 			var html = this.watch.get('link_title');
@@ -78,6 +81,23 @@ define(function (require) {
 			var html = this.watch.get('body_html');
 			html = _.unescape(html);
 			this.$('.comment-body').html(html);
+		},
+		renderPermalink: function () {
+			var linkId = this.watch.get('link_id').substring(3);
+			var commentId = this.watch.get('id');
+			var href = 'http://www.reddit.com/comments/' + linkId + '//' + commentId;
+			this.$('.actions .permalink').attr('href', href);
+		},
+		renderContextLink: function () {
+			var linkId = this.watch.get('link_id').substring(3);
+			var commentId = this.watch.get('id');
+			var href = 'http://www.reddit.com/comments/' + linkId + '//' + commentId + '?context=99';
+			this.$('.actions .context').attr('href', href);
+		},
+		renderFullCommentsLink: function () {
+			var linkId = this.watch.get('link_id').substring(3);
+			var href = 'http://www.reddit.com/comments/' + linkId;
+			this.$('.actions .full-comments').attr('href', href);
 		},
 		start: function () {
 			this.stop();

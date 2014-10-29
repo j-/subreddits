@@ -1,4 +1,9 @@
 .comment {
+	margin-bottom: 10px;
+	.link-details,
+	.comment-details {
+		line-height: (70px / 3);
+	}
 	.link-title {
 		color: #008;
 		padding: 4px 0;
@@ -9,5 +14,18 @@
 	.text,
 	.comment-time {
 		color: #888;
+	}
+	.comment-body {
+		.clearfix();
+		overflow: auto;
+		padding: 8px 0;
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.actions a {
+		color: #888;
+		padding: 4px 4px 4px 0;
+		text-decoration: underline;
 	}
 }
