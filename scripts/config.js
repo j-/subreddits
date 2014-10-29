@@ -12,7 +12,8 @@ var config = {
 		'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap',
 		'signals': '../bower_components/js-signals/dist/signals',
 		'crossroads': '../bower_components/crossroads.js/dist/crossroads',
-		'marked': '../bower_components/marked/lib/marked'
+		'marked': '../bower_components/marked/lib/marked',
+		'moment': '../bower_components/moment/moment'
 	},
 	shim: {
 		'ok': {
