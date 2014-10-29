@@ -1,14 +1,26 @@
-.inline-user,
-.inline-user:focus,
-.inline-user:hover {
-	color: hsl(240, 45%, 67%);
-}
-.inline-user .name {
-	color: hsl(240, 45%, 37%);
-}
-.inline-user.deleted {
-	color: #000;
+.inline-user {
+	padding: 2px;
+	&,
+	&:focus,
 	&:hover {
-		text-decoration: none;
+		color: hsl(240, 45%, 67%);
+	}
+	& .name {
+		color: hsl(240, 45%, 37%);
+	}
+	&.deleted {
+		color: #000;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	&.is-op {
+		border-radius: 4px;
+		background-color: #0055DF;
+		color: #fff;
+		.name,
+		&:hover {
+			color: #fff;
+		}
 	}
 }

@@ -65,8 +65,12 @@ define(function (require) {
 			this.inlineSubredditView.render();
 		},
 		renderCommentAuthor: function () {
-			this.inlineCommentAuthorUserView.setElement(this.$('.comment-author'));
+			var author = this.watch.get('author');
+			var linkAuthor = this.watch.get('link_author');
+			var $author = this.$('.comment-author');
+			this.inlineCommentAuthorUserView.setElement($author);
 			this.inlineCommentAuthorUserView.render();
+			$author.toggleClass('is-op', author === linkAuthor);
 		},
 		renderScore: function () {
 			var score = this.watch.get('score');
