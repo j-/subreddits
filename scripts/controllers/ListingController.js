@@ -54,6 +54,11 @@ define(function (require) {
 				callback(null);
 			});
 		},
+		reload: function () {
+			this.listing.empty();
+			this.state.set('after', null);
+			this.loadMore();
+		},
 		handleError: function (err) {
 			console.log('Error fetching listing', err);
 		},
