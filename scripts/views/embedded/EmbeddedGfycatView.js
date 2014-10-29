@@ -55,13 +55,13 @@ define(function (require) {
 			this.$el.text('There was an error loading this tweet');
 		},
 		start: function () {
-			EmbeddedView.prototype.start.call();
+			EmbeddedView.prototype.start.call(this);
 			if (this.gfyView) {
 				this.gfyView.start();
 			}
 		},
 		stop: function () {
-			EmbeddedView.prototype.stop.call();
+			EmbeddedView.prototype.stop.call(this);
 			if (this.gfyView) {
 				this.gfyView.stop();
 			}
