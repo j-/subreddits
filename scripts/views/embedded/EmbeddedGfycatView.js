@@ -67,7 +67,7 @@ define(function (require) {
 			}
 		}
 	});
-	EmbeddedGfycatView.gfycatExp = /^https?:\/\/(?:www\.)?gfycat\.com\/(\w+)/i;
+	EmbeddedGfycatView.gfycatExp = /^https?:\/\/(?:(?:www|zippy|fat|giant)\.)?gfycat\.com\/(\w+)(?:\.\w+)?/i;
 	EmbeddedGfycatView.identify = function (linkModel) {
 		var url = linkModel.get('url');
 		return EmbeddedGfycatView.gfycatExp.test(url);
