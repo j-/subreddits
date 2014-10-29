@@ -6,6 +6,7 @@ define(function (require) {
 	var SubredditModel = require('models/SubredditModel');
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
+	var TimeView = require('views/TimeView');
 	var embedded = require('modules/embedded');
 	var pagerouter = require('modules/pagerouter');
 	var html = require('text!templates/Link.html');
@@ -27,6 +28,9 @@ define(function (require) {
 			});
 			this.inlineSubredditView = new InlineSubredditView({
 				watch: this.subreddit
+			});
+			this.timeView = new TimeView({
+				watch: this.watch.getProperty('created_utc')
 			});
 			this.embeddedView = null;
 			var EmbeddedView = embedded.identify(this.watch);
@@ -96,9 +100,8 @@ define(function (require) {
 				.text(score);
 		},
 		renderCreated: function () {
-			var created = this.watch.get('created_utc');
-			this.$('.time')
-				.text(created.toLocaleString());
+			this.timeView.setElement(this.$('.time'));
+			this.timeView.render();
 		},
 		renderAuthor: function () {
 			this.inlineUserView.render();
@@ -187,11 +190,13 @@ define(function (require) {
 			return FAVICON_BASE_URL + encodeURIComponent(url);
 		},
 		start: function () {
+			this.stop();
 			this.$el.on('click', '.thumbnail', this.handleClickThumbnail);
 			this.$el.on('click', '.comments', this.handleClickComments);
 			this.$el.on('click', '.domain', this.handleClickDomain);
 			this.inlineSubredditView.start();
 			this.inlineUserView.start();
+			this.timeView.start();
 			if (this.embeddedView) {
 				this.embeddedView.start();
 			}
@@ -203,6 +208,7 @@ define(function (require) {
 			this.$el.off('click', '.domain', this.handleClickDomain);
 			this.inlineSubredditView.stop();
 			this.inlineUserView.stop();
+			this.timeView.stop();
 			if (this.embeddedView) {
 				this.embeddedView.stop();
 			}

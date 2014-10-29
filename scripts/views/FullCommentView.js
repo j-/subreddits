@@ -6,6 +6,7 @@ define(function (require) {
 	var SubredditModel = require('models/SubredditModel');
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
+	var TimeView = require('views/TimeView');
 	var html = require('text!templates/FullComment.html');
 	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
 	var FullCommentView = ok.$View.extend({
@@ -28,6 +29,9 @@ define(function (require) {
 			});
 			this.inlineSubredditView = new InlineSubredditView({
 				watch: this.subreddit
+			});
+			this.timeView = new TimeView({
+				watch: this.watch.getProperty('created_utc')
 			});
 		},
 		render: function () {
@@ -78,10 +82,8 @@ define(function (require) {
 			this.$('.comment-score').text(score);
 		},
 		renderTime: function () {
-			var createdUtc = this.watch.get('created_utc');
-			var createdDate = new Date(createdUtc * 1000);
-			var time = createdDate.toLocaleString();
-			this.$('.comment-time').text(time);
+			this.timeView.setElement(this.$('.comment-time'));
+			this.timeView.render();
 		},
 		renderBody: function () {
 			var html = this.watch.get('body_html');
@@ -113,12 +115,14 @@ define(function (require) {
 			this.inlineLinkAuthorUserView.start();
 			this.inlineCommentAuthorUserView.start();
 			this.inlineSubredditView.start();
+			this.timeView.start();
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
 			this.inlineLinkAuthorUserView.stop();
 			this.inlineCommentAuthorUserView.stop();
 			this.inlineSubredditView.stop();
+			this.timeView.stop();
 		}
 	});
 	return FullCommentView;
