@@ -38,6 +38,10 @@ define(function (require) {
 	window.init = function () {
 		all.set(subreddits);
 	};
+	// automatically init on first-ish visit
+	if (!all.items.length) {
+		init();
+	}
 
 	var Listing = require('collections/Listing');
 	var ListingController = require('controllers/ListingController');
