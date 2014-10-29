@@ -34,14 +34,18 @@ define(function (require) {
 			}
 		},
 		loadMore: function (options, callback) {
+			// use current state as defaults
 			options = _.extend({
 				after: this.state.get('after'),
 				page: this.state.get('currentPage')
 			}, options);
+			// ensure callback is a function even if only a no-op
 			callback = typeof callback === 'function' ? callback : _.identity;
+			// no point fetching if the last result set was empty
 			if (this.state.get('atEnd')) {
 				callback(new Error('End of listing'));
 			}
+			// kill an existing request
 			if (this.latestXhr) {
 				this.latestXhr.abort();
 			}
