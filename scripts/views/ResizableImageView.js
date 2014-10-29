@@ -1,9 +1,11 @@
 define(function (require) {
 	var ok = require('ok');
 	require('ok.dollarview');
+	var _ = require('underscore');
 	var ResizableImageView = ok.$View.extend({
 		tagName: 'a',
 		init: function (options) {
+			_.bindAll(this, 'handleClick', 'handleMouseMove', 'handleMouseDown', 'handleMouseUp');
 			this.$img = $();
 			this.didMove = false;
 			this.url = options.url;
@@ -41,9 +43,8 @@ define(function (require) {
 			var differenceY = beginScreenY - this.offsetTop;
 			this.beginDistance = this.calculateDistance(differenceX, differenceY);
 			this.startResizing();
-			this.mouseMoveHandler = _.bind(this.handleMouseMove, this);
-			$(window).on('mousemove', this.mouseMoveHandler);
-			$(window).one('mouseup', _.bind(this.handleMouseUp, this));
+			$(window).on('mousemove', this.handleMouseMove);
+			$(window).one('mouseup', this.handleMouseUp);
 		},
 		handleMouseMove: function (e) {
 			var screenX = e.screenX;
@@ -56,7 +57,7 @@ define(function (require) {
 		},
 		handleMouseUp: function () {
 			this.stopResizing();
-			$(window).off('mousemove', this.mouseMoveHandler);
+			$(window).off('mousemove', this.handleMouseMove);
 		},
 		handleClick: function (e) {
 			if (this.didMove) {
@@ -81,8 +82,8 @@ define(function (require) {
 			// no-op
 		},
 		start: function () {
-			this.$el.on('mousedown', '.drag-image', _.bind(this.handleMouseDown, this));
-			this.$el.on('click', _.bind(this.handleClick, this));
+			this.$el.on('mousedown', '.drag-image', this.handleMouseDown);
+			this.$el.on('click', this.handleClick);
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
