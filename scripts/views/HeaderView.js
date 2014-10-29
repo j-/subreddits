@@ -28,6 +28,9 @@ define(function (require) {
 
 	var HeaderView = ok.$View.extend({
 		className: 'listing-controls navbar navbar-default navbar-fixed-top navbar-inverse',
+		init: function () {
+			_.bindAll(this, 'handleClickSort', 'handleClickRefresh');
+		},
 		render: function () {
 			this.$el.html(html);
 		},
@@ -42,6 +45,10 @@ define(function (require) {
 			$target.parents('.dropdown-submenu').addClass(ACTIVE_CLASS);
 			this.indicateSort(sort, t);
 		},
+		handleClickRefresh: function (e) {
+			e.preventDefault();
+			this.trigger('refresh');
+		},
 		indicateSort: function (sort, t) {
 			sort = displaySort[sort];
 			var $el = this.$('.sorting-by')
@@ -55,14 +62,15 @@ define(function (require) {
 					.text('(' + t + ')')
 					.appendTo($el);
 			}
-
 		},
 		start: function () {
-			this.$el.on('click', 'a[data-sort]', _.bind(this.handleClickSort, this));
+			this.$el.on('click', 'a[data-sort]', this.handleClickSort);
+			this.$el.on('click', '.action-refresh', this.handleClickRefresh);
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
-			this.$el.off('click', 'a[data-sort]');
+			this.$el.off('click', 'a[data-sort]', this.handleClickSort);
+			this.$el.off('click', '.action-refresh', this.handleClickRefresh);
 		}
 	});
 	return HeaderView;

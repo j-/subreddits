@@ -78,6 +78,9 @@ define(function (require) {
 	var header = new HeaderView();
 	header.render();
 	header.start();
+	header.on('refresh', function () {
+		controller.reload();
+	});
 
 	$(function () {
 		$(document.body).append(header.el);
