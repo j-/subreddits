@@ -12,6 +12,7 @@ define(function (require) {
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
 	var TimeView = require('views/TimeView');
+	var UserContentView = require('views/UserContentView');
 	// templates
 	var html = require('text!templates/FullComment.html');
 	var FullCommentView = ok.$View.extend({
@@ -44,6 +45,9 @@ define(function (require) {
 			});
 			this.timeView = new TimeView({
 				watch: this.watch.getProperty('created_utc')
+			});
+			this.userContentView = new UserContentView({
+				watch: this.watch.getProperty('body_html')
 			});
 		},
 		render: function () {
@@ -91,9 +95,8 @@ define(function (require) {
 			this.timeView.render();
 		},
 		renderBody: function () {
-			var html = this.watch.get('body_html');
-			html = _.unescape(html);
-			this.$('.comment-body').html(html);
+			this.userContentView.render();
+			this.$('.comment-body').append(this.userContentView.$el);
 		},
 		renderPermalink: function () {
 			var linkId = this.watch.get('link_id').substring(3);
@@ -119,6 +122,7 @@ define(function (require) {
 			this.inlineCommentAuthorUserView.start();
 			this.inlineSubredditView.start();
 			this.timeView.start();
+			this.userContentView.start();
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
@@ -127,6 +131,7 @@ define(function (require) {
 			this.inlineCommentAuthorUserView.stop();
 			this.inlineSubredditView.stop();
 			this.timeView.stop();
+			this.userContentView.stop();
 		}
 	});
 	return FullCommentView;
