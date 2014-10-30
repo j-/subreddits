@@ -29,7 +29,7 @@ define(function (require) {
 			this.state.set('atEnd', false);
 			this.state.set('currentPage', null);
 			if (this.latestXhr) {
-				this.latestXhr.abort();
+				this.latestXhr.cancel();
 				this.latestXhr = null;
 			}
 		},
@@ -47,9 +47,12 @@ define(function (require) {
 			}
 			// kill an existing request
 			if (this.latestXhr) {
-				this.latestXhr.abort();
+				this.latestXhr.cancel();
 			}
-			this.latestXhr = sync.getListing(options, this.handleResponse);
+			this.latestXhr = sync.getListing(options)
+				.bind(this)
+				.catch(this.handleError)
+				.then(this.handleResponse);
 			this.latestXhr.then(function () {
 				callback(null);
 			});
@@ -65,11 +68,7 @@ define(function (require) {
 		handleEnd: function () {
 			console.log('End of listing reached');
 		},
-		handleResponse: function (err, response) {
-			if (err) {
-				this.handleError(err);
-				return;
-			}
+		handleResponse: function (response) {
 			var after = response.data.after;
 			this.state.set('after', after);
 			if (!after) {

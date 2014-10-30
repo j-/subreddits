@@ -1,8 +1,9 @@
 define(function (require, exports) {
 	var $ = require('jquery');
 	var _ = require('underscore');
+	var Promise = require('bluebird');
 
-	exports.getListing = function (options, callback) {
+	exports.getListing = function (options) {
 		var settings = _.extend({
 			page: null,
 			// after / before - only one should be specified. these indicate the
@@ -24,23 +25,14 @@ define(function (require, exports) {
 		// convert subreddit(s) into url
 		var page = 'http://www.reddit.com' + (settings.page || '/') + '.json';
 		delete settings.page;
-		// make sure callback is a function
-		callback = typeof callback === 'function' ? callback : _.identity;
 		// make call
-		return $.ajax({
+		var xhr = $.ajax({
 			url: page,
 			dataType: 'jsonp',
 			jsonp: 'jsonp',
-			data: settings,
-			success: function (response) {
-				callback(null, response);
-			},
-			error: function (xhr, status, message) {
-				var err = new Error(message);
-				err.name = status;
-				callback(err);
-			}
+			data: settings
 		});
+		return Promise.resolve(xhr).cancellable();
 	};
 
 	exports.getRedditListing = function (options, callback) {
