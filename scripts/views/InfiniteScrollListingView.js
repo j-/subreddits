@@ -4,6 +4,7 @@ define(function (require) {
 	var $ = require('jquery');
 	var _ = require('underscore');
 	var ListingView = require('views/ListingView');
+	var EndOfListingView = require('views/EndOfListingView');
 	var InfiniteScrollListingView = ok.$View.extend({
 		scrollElement: window,
 		scrollThreshold: 200,
@@ -11,18 +12,24 @@ define(function (require) {
 			// bind context
 			_.bindAll(this, 'handleScroll');
 			// load options
-			_.extend(this, _.pick(options, 'scrollElement', 'scrollThreshold', 'scrollCallback'));
+			_.extend(this, _.pick(options, 'controller', 'scrollElement', 'scrollThreshold', 'scrollCallback'));
 			this.$scrollElement = $(this.scrollElement);
 			// make listing
 			this.listingView = new ListingView({
 				watch: this.watch
+			});
+			this.endOfListingView = new EndOfListingView({
+				watch: this.controller.state.getProperty('atEnd')
 			});
 			this.canTrigger = true;
 		},
 		render: function () {
 			this.empty();
 			this.listingView.render();
-			this.$el.append(this.listingView.el);
+			this.endOfListingView.render();
+			this.$el
+				.append(this.listingView.el)
+				.append(this.endOfListingView.el);
 		},
 		handleScroll: function () {
 			this.testScroll();
@@ -57,12 +64,15 @@ define(function (require) {
 			return height - bottom < threshold;
 		},
 		start: function () {
+			this.stop();
 			this.listingView.start();
+			this.endOfListingView.start();
 			this.$scrollElement.on('scroll', this.handleScroll);
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
 			this.listingView.stop();
+			this.endOfListingView.stop();
 			this.$scrollElement.off('scroll', this.handleScroll);
 		}
 	});
