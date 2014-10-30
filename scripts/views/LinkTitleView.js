@@ -1,6 +1,7 @@
 define(function (require) {
 	var ok = require('ok');
 	require('ok.dollarview');
+	var _ = require('underscore');
 	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
 	var LinkTitleView = ok.$View.extend({
 		tagName: 'a',
@@ -9,6 +10,7 @@ define(function (require) {
 			var url = this.watch.get('url');
 			var title = this.watch.get('title');
 			var favicon = LinkTitleView.getFaviconURL(url);
+			title = _.unescape(title);
 			this.empty();
 			$.create('img')
 				.addClass('favicon')
