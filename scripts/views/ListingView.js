@@ -1,6 +1,7 @@
 define(function (require) {
 	var ok = require('ok');
 	require('ok.views');
+	var $ = require('jquery');
 	var CommentModel = require('models/CommentModel');
 	var FullCommentView = require('views/FullCommentView');
 	var LinkModel = require('models/LinkModel');
@@ -14,6 +15,11 @@ define(function (require) {
 				return LinkView;
 			}
 			throw new Error('Unrecognised item in listing');
+		},
+		getItemView: function () {
+			var view = ok.CollectionView.prototype.getItemView.apply(this, arguments);
+			$(view.el).addClass('listing-item');
+			return view;
 		}
 	});
 	return ListingView;

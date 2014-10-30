@@ -16,6 +16,7 @@ define(function (require) {
 			this.$scrollElement = $(this.scrollElement);
 			// make listing
 			this.listingView = new ListingView({
+				className: 'listing-items',
 				watch: this.watch
 			});
 			this.endOfListingView = new EndOfListingView({
