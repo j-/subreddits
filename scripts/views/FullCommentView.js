@@ -1,17 +1,26 @@
 define(function (require) {
+	// libs
 	var ok = require('ok');
 	require('ok.dollarview');
 	var _ = require('underscore');
+	// models
+	var LinkModel = require('models/LinkModel');
 	var AccountModel = require('models/AccountModel');
 	var SubredditModel = require('models/SubredditModel');
+	// views
+	var LinkTitleView = require('views/LinkTitleView');
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
 	var TimeView = require('views/TimeView');
+	// templates
 	var html = require('text!templates/FullComment.html');
-	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
 	var FullCommentView = ok.$View.extend({
 		className: 'comment full-comment',
 		init: function () {
+			this.linkModel = new LinkModel();
+			this.linkModel.set('id', this.watch.get('link_id').substring(3));
+			this.linkModel.setProperty('title', this.watch.getProperty('link_title'));
+			this.linkModel.setProperty('url', this.watch.getProperty('link_url'));
 			this.linkAuthorModel = new AccountModel({
 				name: this.watch.get('link_author')
 			});
@@ -20,6 +29,9 @@ define(function (require) {
 			});
 			this.subreddit = new SubredditModel({
 				display_name: this.watch.get('subreddit')
+			});
+			this.linkTitleView = new LinkTitleView({
+				watch: this.linkModel
 			});
 			this.inlineLinkAuthorUserView = new InlineUserView({
 				watch: this.linkAuthorModel
@@ -39,7 +51,6 @@ define(function (require) {
 			this.$el
 				.html(html);
 			this.renderLinkTitle();
-			this.renderLinkURL();
 			this.renderLinkAuthor();
 			this.renderLinkSubreddit();
 			this.renderCommentAuthor();
@@ -51,14 +62,8 @@ define(function (require) {
 			this.renderFullCommentsLink();
 		},
 		renderLinkTitle: function () {
-			var html = this.watch.get('link_title');
-			html = _.unescape(html);
-			this.$('.link-title-text').html(html);
-		},
-		renderLinkURL: function () {
-			var url = this.watch.get('link_url');
-			this.$('.link-title').attr('href', url);
-			this.$('.favicon').attr('src', this.getFaviconURL(url));
+			this.linkTitleView.setElement(this.$('.link-title'));
+			this.linkTitleView.render();
 		},
 		renderLinkAuthor: function () {
 			this.inlineLinkAuthorUserView.setElement(this.$('.link-author'));
@@ -107,11 +112,9 @@ define(function (require) {
 			var href = 'http://www.reddit.com/comments/' + linkId;
 			this.$('.actions .full-comments').attr('href', href);
 		},
-		getFaviconURL: function (url) {
-			return FAVICON_BASE_URL + encodeURIComponent(url);
-		},
 		start: function () {
 			this.stop();
+			this.linkTitleView.start();
 			this.inlineLinkAuthorUserView.start();
 			this.inlineCommentAuthorUserView.start();
 			this.inlineSubredditView.start();
@@ -119,6 +122,7 @@ define(function (require) {
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
+			this.linkTitleView.stop();
 			this.inlineLinkAuthorUserView.stop();
 			this.inlineCommentAuthorUserView.stop();
 			this.inlineSubredditView.stop();

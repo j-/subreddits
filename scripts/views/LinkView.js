@@ -4,15 +4,13 @@ define(function (require) {
 	var _ = require('underscore');
 	var AccountModel = require('models/AccountModel');
 	var SubredditModel = require('models/SubredditModel');
+	var LinkTitleView = require('views/LinkTitleView');
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
 	var TimeView = require('views/TimeView');
 	var embedded = require('modules/embedded');
 	var pagerouter = require('modules/pagerouter');
 	var html = require('text!templates/Link.html');
-
-	var FAVICON_BASE_URL = '//plus.google.com/_/favicon?domain=';
-
 	var LinkView = ok.$View.extend({
 		className: 'link',
 		init: function () {
@@ -25,6 +23,9 @@ define(function (require) {
 			});
 			this.subreddit = new SubredditModel({
 				display_name: this.watch.get('subreddit')
+			});
+			this.linkTitleView = new LinkTitleView({
+				watch: this.watch
 			});
 			this.inlineSubredditView = new InlineSubredditView({
 				watch: this.subreddit
@@ -48,7 +49,6 @@ define(function (require) {
 				.toggleClass('stickied', this.watch.get('stickied'));
 			this.renderThumbnail();
 			this.renderTitle();
-			this.renderURL();
 			this.renderDomain();
 			this.renderScore();
 			this.renderCreated();
@@ -74,17 +74,8 @@ define(function (require) {
 			}
 		},
 		renderTitle: function () {
-			var title = this.watch.get('title');
-			title = _.unescape(title);
-			this.$('.title-text')
-				.text(title);
-		},
-		renderURL: function () {
-			var url = this.watch.get('url');
-			this.$('.title')
-				.attr('href', url);
-			this.$('.favicon')
-				.attr('src', this.getFaviconURL(url));
+			this.linkTitleView.setElement(this.$('.link-title'));
+			this.linkTitleView.render();
 		},
 		renderDomain: function () {
 			var domain = this.watch.get('domain');
@@ -186,14 +177,12 @@ define(function (require) {
 				pagerouter.go('/domain/' + domain);
 			}
 		},
-		getFaviconURL: function (url) {
-			return FAVICON_BASE_URL + encodeURIComponent(url);
-		},
 		start: function () {
 			this.stop();
 			this.$el.on('click', '.thumbnail', this.handleClickThumbnail);
 			this.$el.on('click', '.comments', this.handleClickComments);
 			this.$el.on('click', '.domain', this.handleClickDomain);
+			this.linkTitleView.start();
 			this.inlineSubredditView.start();
 			this.inlineUserView.start();
 			this.timeView.start();
@@ -206,6 +195,7 @@ define(function (require) {
 			this.$el.off('click', '.thumbnail', this.handleClickThumbnail);
 			this.$el.off('click', '.comments', this.handleClickComments);
 			this.$el.off('click', '.domain', this.handleClickDomain);
+			this.linkTitleView.stop();
 			this.inlineSubredditView.stop();
 			this.inlineUserView.stop();
 			this.timeView.stop();
