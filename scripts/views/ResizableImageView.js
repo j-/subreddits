@@ -35,8 +35,8 @@ define(function (require) {
 		handleMouseDown: function (e) {
 			e.preventDefault();
 			var offset = this.$img.offset();
-			this.offsetLeft = offset.left;
-			this.offsetTop = offset.top;
+			this.offsetLeft = offset.left - document.body.scrollLeft;
+			this.offsetTop = offset.top - document.body.scrollTop;
 			var beginScreenX = e.screenX;
 			var beginScreenY = e.screenY;
 			var differenceX = beginScreenX - this.offsetLeft;
