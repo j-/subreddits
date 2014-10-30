@@ -8,6 +8,7 @@ define(function (require) {
 	var InlineUserView = require('views/InlineUserView');
 	var InlineSubredditView = require('views/InlineSubredditView');
 	var TimeView = require('views/TimeView');
+	var GoldView = require('views/GoldView');
 	var embedded = require('modules/embedded');
 	var pagerouter = require('modules/pagerouter');
 	var html = require('text!templates/Link.html');
@@ -33,6 +34,9 @@ define(function (require) {
 			this.timeView = new TimeView({
 				watch: this.watch.getProperty('created_utc')
 			});
+			this.goldView = new GoldView({
+				watch: this.watch.getProperty('gilded')
+			});
 			this.embeddedView = null;
 			var EmbeddedView = embedded.identify(this.watch);
 			if (EmbeddedView) {
@@ -55,6 +59,7 @@ define(function (require) {
 			this.renderAuthor();
 			this.renderComments();
 			this.renderSubreddit();
+			this.renderGold();
 			this.renderEmbeddedMedia();
 		},
 		renderThumbnail: function () {
@@ -114,6 +119,10 @@ define(function (require) {
 			this.$('.subreddit')
 				.empty()
 				.append(this.inlineSubredditView.el);
+		},
+		renderGold: function () {
+			this.goldView.setElement(this.$('.gold'));
+			this.goldView.render();
 		},
 		renderEmbeddedMedia: function () {
 			if (this.embeddedView) {
@@ -186,6 +195,7 @@ define(function (require) {
 			this.inlineSubredditView.start();
 			this.inlineUserView.start();
 			this.timeView.start();
+			this.goldView.start();
 			if (this.embeddedView) {
 				this.embeddedView.start();
 			}
@@ -199,6 +209,7 @@ define(function (require) {
 			this.inlineSubredditView.stop();
 			this.inlineUserView.stop();
 			this.timeView.stop();
+			this.goldView.stop();
 			if (this.embeddedView) {
 				this.embeddedView.stop();
 			}

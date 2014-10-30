@@ -9,6 +9,7 @@ define(function (require) {
 	// views
 	var InlineUserView = require('views/InlineUserView');
 	var TimeView = require('views/TimeView');
+	var GoldView = require('views/GoldView');
 	var UserContentView = require('views/UserContentView');
 	// templates
 	var html = require('text!templates/Comment.html');
@@ -27,6 +28,9 @@ define(function (require) {
 			this.userContentView = new UserContentView({
 				watch: this.watch.getProperty('body_html')
 			});
+			this.goldView = new GoldView({
+				watch: this.watch.getProperty('gilded')
+			});
 		},
 		render: function () {
 			this.empty();
@@ -35,6 +39,7 @@ define(function (require) {
 			this.renderAuthor();
 			this.renderScore();
 			this.renderTime();
+			this.renderGold();
 			this.renderBody();
 			this.renderPermalink();
 			this.renderContextLink();
@@ -56,6 +61,10 @@ define(function (require) {
 		renderTime: function () {
 			this.timeView.setElement(this.$('.comment-time'));
 			this.timeView.render();
+		},
+		renderGold: function () {
+			this.goldView.setElement(this.$('.gold'));
+			this.goldView.render();
 		},
 		renderBody: function () {
 			this.userContentView.render();
@@ -82,12 +91,14 @@ define(function (require) {
 			this.stop();
 			this.inlineAuthorUserView.start();
 			this.timeView.start();
+			this.goldView.start();
 			this.userContentView.start();
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
 			this.inlineAuthorUserView.stop();
 			this.timeView.stop();
+			this.goldView.stop();
 			this.userContentView.stop();
 		}
 	});
