@@ -6,7 +6,7 @@ define(function (require) {
 	var ListingController = ok.Controller.extend({
 		init: function (options) {
 			_.extend(this, _.pick(options, 'listing', 'router'));
-			_.bindAll(this, 'resetState', 'loadMore', 'handleResponse', 'handleRouteSubreddit', 'handleRouteFrontpage', 'handleRouteUsername', 'handleRouteDomain');
+			_.bindAll(this, 'resetState', 'loadMore', 'handleResponse', 'handleRouteSubreddit', 'handleRouteFrontpage', 'handleRouteUsername', 'handleRouteDomain', 'handleRouteMulti');
 			this.state = new ok.Map({
 				after: null,
 				atEnd: false,
@@ -20,6 +20,7 @@ define(function (require) {
 			this.router.on('route:subreddit', this.handleRouteSubreddit);
 			this.router.on('route:frontpage', this.handleRouteFrontpage);
 			this.router.on('route:username', this.handleRouteUsername);
+			this.router.on('route:multi', this.handleRouteMulti);
 			this.router.on('route:domain', this.handleRouteDomain);
 			this.router.parseCurrent();
 		},
@@ -91,6 +92,11 @@ define(function (require) {
 		handleRouteUsername: function (username) {
 			this.resetState();
 			this.state.set('currentPage', '/user/' + username);
+			this.loadMore();
+		},
+		handleRouteMulti: function (username, multi) {
+			this.resetState();
+			this.state.set('currentPage', '/user/' + username + '/m/' + multi);
 			this.loadMore();
 		},
 		handleRouteDomain: function (domain) {

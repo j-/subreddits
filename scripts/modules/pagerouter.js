@@ -8,11 +8,14 @@ define(function (require) {
 		init: function () {
 			_.bindAll(this,
 				'parseCurrent', 'hitFrontPage', 'hitSubreddit', 'hitUserpage',
-				'hitDomain', 'hitComments', 'hitSearch', 'hitSubmit');
+				'hitDomain', 'hitComments', 'hitSearch', 'hitSubmit',
+				'hitMulti');
 			crossroads.addRoute('/', this.hitFrontPage);
 			crossroads.addRoute('/r/{subreddit}', this.hitSubreddit);
 			crossroads.addRoute('/u/{username}', this.hitUserpage);
 			crossroads.addRoute('/user/{username}', this.hitUserpage);
+			crossroads.addRoute('/u/{username}/m/{multi}', this.hitMulti);
+			crossroads.addRoute('/user/{username}/m/{multi}', this.hitMulti);
 			crossroads.addRoute('/domain/{domain}', this.hitDomain);
 			crossroads.addRoute('/comments/{id}', this.hitComments);
 			crossroads.addRoute('/search:?query:', this.hitSearch);
@@ -26,6 +29,9 @@ define(function (require) {
 		},
 		hitUserpage: function (username) {
 			this.trigger('route:username', username);
+		},
+		hitMulti: function (username, multi) {
+			this.trigger('route:multi', username, multi);
 		},
 		hitDomain: function (domain) {
 			this.trigger('route:domain', domain);
