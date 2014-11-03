@@ -6,11 +6,12 @@ define(function (require) {
 	var ListingController = ok.Controller.extend({
 		init: function (options) {
 			_.extend(this, _.pick(options, 'listing', 'router'));
-			_.bindAll(this, 'resetState', 'loadMore', 'handleResponse', 'handleRouteSubreddit', 'handleRouteFrontpage', 'handleRouteUsername', 'handleRouteDomain', 'handleRouteMulti');
+			_.bindAll(this, 'resetState', 'loadMore', 'handleResponse', 'handleRouteSubreddit', 'handleRouteFrontpage', 'handleRouteUsername', 'handleRouteDomain', 'handleRouteMulti', 'handleRouteSearch');
 			this.state = new ok.Map({
 				after: null,
 				atEnd: false,
-				currentPage: null
+				currentPage: null,
+				q: null
 			});
 			this.latestXhr = null;
 			this.initRouter();
@@ -22,6 +23,7 @@ define(function (require) {
 			this.router.on('route:username', this.handleRouteUsername);
 			this.router.on('route:multi', this.handleRouteMulti);
 			this.router.on('route:domain', this.handleRouteDomain);
+			this.router.on('route:search', this.handleRouteSearch);
 			this.router.parseCurrent();
 		},
 		resetState: function () {
@@ -29,6 +31,7 @@ define(function (require) {
 			this.state.set('after', null);
 			this.state.set('atEnd', false);
 			this.state.set('currentPage', null);
+			this.state.set('q', null);
 			if (this.latestXhr) {
 				this.latestXhr.cancel();
 				this.latestXhr = null;
@@ -38,7 +41,8 @@ define(function (require) {
 			// use current state as defaults
 			options = _.extend({
 				after: this.state.get('after'),
-				page: this.state.get('currentPage')
+				page: this.state.get('currentPage'),
+				q: this.state.get('q')
 			}, options);
 			// ensure callback is a function even if only a no-op
 			callback = typeof callback === 'function' ? callback : _.identity;
@@ -102,6 +106,12 @@ define(function (require) {
 		handleRouteDomain: function (domain) {
 			this.resetState();
 			this.state.set('currentPage', '/domain/' + domain);
+			this.loadMore();
+		},
+		handleRouteSearch: function (query) {
+			this.resetState();
+			this.state.set('currentPage', '/search');
+			this.state.set('q', query.q);
 			this.loadMore();
 		}
 	});

@@ -10,40 +10,40 @@ define(function (require) {
 				'parseCurrent', 'hitFrontPage', 'hitSubreddit', 'hitUserpage',
 				'hitDomain', 'hitComments', 'hitSearch', 'hitSubmit',
 				'hitMulti');
-			crossroads.addRoute('/', this.hitFrontPage);
-			crossroads.addRoute('/r/{subreddit}', this.hitSubreddit);
-			crossroads.addRoute('/u/{username}', this.hitUserpage);
-			crossroads.addRoute('/user/{username}', this.hitUserpage);
-			crossroads.addRoute('/u/{username}/m/{multi}', this.hitMulti);
-			crossroads.addRoute('/user/{username}/m/{multi}', this.hitMulti);
-			crossroads.addRoute('/domain/{domain}', this.hitDomain);
-			crossroads.addRoute('/comments/{id}', this.hitComments);
+			crossroads.addRoute('/:?query:', this.hitFrontPage);
+			crossroads.addRoute('/r/{subreddit}:?query:', this.hitSubreddit);
+			crossroads.addRoute('/u/{username}:?query:', this.hitUserpage);
+			crossroads.addRoute('/user/{username}:?query:', this.hitUserpage);
+			crossroads.addRoute('/u/{username}/m/{multi}:?query:', this.hitMulti);
+			crossroads.addRoute('/user/{username}/m/{multi}:?query:', this.hitMulti);
+			crossroads.addRoute('/domain/{domain}:?query:', this.hitDomain);
+			crossroads.addRoute('/comments/{id}:?query:', this.hitComments);
 			crossroads.addRoute('/search:?query:', this.hitSearch);
 			crossroads.addRoute('/submit:?query:', this.hitSubmit);
 		},
-		hitFrontPage: function () {
-			this.trigger('route:frontpage');
+		hitFrontPage: function (query) {
+			this.trigger('route:frontpage', query);
 		},
-		hitSubreddit: function (subreddit) {
-			this.trigger('route:subreddit', subreddit);
+		hitSubreddit: function (subreddit, query) {
+			this.trigger('route:subreddit', subreddit, query);
 		},
-		hitUserpage: function (username) {
-			this.trigger('route:username', username);
+		hitUserpage: function (username, query) {
+			this.trigger('route:username', username, query);
 		},
-		hitMulti: function (username, multi) {
-			this.trigger('route:multi', username, multi);
+		hitMulti: function (username, multi, query) {
+			this.trigger('route:multi', username, multi, query);
 		},
-		hitDomain: function (domain) {
-			this.trigger('route:domain', domain);
+		hitDomain: function (domain, query) {
+			this.trigger('route:domain', domain, query);
 		},
-		hitComments: function (id) {
-			this.trigger('route:comments', id);
+		hitComments: function (id, query) {
+			this.trigger('route:comments', id, query);
 		},
 		hitSearch: function (query) {
 			this.trigger('route:search', query);
 		},
-		hitSubmit: function () {
-			this.trigger('route:submit');
+		hitSubmit: function (query) {
+			this.trigger('route:submit', query);
 		},
 		go: function (path) {
 			location.hash = path;
