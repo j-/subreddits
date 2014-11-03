@@ -1,13 +1,9 @@
 define(function (require) {
-	var ok = require('ok');
-	require('ok.dollarview');
-	var _ = require('underscore');
-	var ResizableImageView = ok.$View.extend({
+	var ResizableView = require('views/ResizableView');
+	var ResizableImageView = ResizableView.extend({
 		tagName: 'a',
 		init: function (options) {
-			_.bindAll(this, 'handleClick', 'handleMouseMove', 'handleMouseDown', 'handleMouseUp');
 			this.$img = $();
-			this.didMove = false;
 			this.url = options.url;
 			this.href = options.href || this.url;
 		},
@@ -28,67 +24,6 @@ define(function (require) {
 		setAnchorHref: function (href) {
 			this.href = href;
 			this.$el.attr('href', this.href);
-		},
-		calculateDistance: function (x, y) {
-			return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-		},
-		handleMouseDown: function (e) {
-			e.preventDefault();
-			var offset = this.$img.offset();
-			this.offsetLeft = offset.left - document.body.scrollLeft;
-			this.offsetTop = offset.top - document.body.scrollTop;
-			var beginScreenX = e.screenX;
-			var beginScreenY = e.screenY;
-			var differenceX = beginScreenX - this.offsetLeft;
-			var differenceY = beginScreenY - this.offsetTop;
-			this.beginDistance = this.calculateDistance(differenceX, differenceY);
-			this.startResizing();
-			$(window).on('mousemove', this.handleMouseMove);
-			$(window).one('mouseup', this.handleMouseUp);
-		},
-		handleMouseMove: function (e) {
-			var screenX = e.screenX;
-			var screenY = e.screenY;
-			var newDifferenceX = screenX - this.offsetLeft;
-			var newDifferenceY = screenY - this.offsetTop;
-			var newDistance = this.calculateDistance(newDifferenceX, newDifferenceY);
-			var scale = newDistance / this.beginDistance;
-			this.resize(scale);
-		},
-		handleMouseUp: function () {
-			this.stopResizing();
-			$(window).off('mousemove', this.handleMouseMove);
-		},
-		handleClick: function (e) {
-			if (this.didMove) {
-				e.preventDefault();
-			}
-		},
-		startResizing: function () {
-			// mouse has not moved yet
-			this.didMove = false;
-			this.originalWidth = this.$img.width();
-			// fix the image at its current width
-			this.$img.width(this.$img.width());
-			// remove the maximum width restriction
-			this.$img.css('max-width', 'inherit');
-		},
-		resize: function (scale) {
-			// mouse is now moving
-			this.didMove = true;
-			this.$img.width(this.originalWidth * scale);
-		},
-		stopResizing: function () {
-			// no-op
-		},
-		start: function () {
-			this.$el.on('mousedown', '.drag-image', this.handleMouseDown);
-			this.$el.on('click', this.handleClick);
-		},
-		stop: function () {
-			ok.$View.prototype.stop.call(this);
-			this.$el.off('mousedown', '.drag-image');
-			this.$el.off('click');
 		}
 	});
 	return ResizableImageView;
