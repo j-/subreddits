@@ -10,8 +10,7 @@ define(function (require) {
 			this.state = new ok.Map({
 				after: null,
 				atEnd: false,
-				currentPage: null,
-				q: null
+				currentPage: null
 			});
 			this.latestXhr = null;
 			this.initRouter();
@@ -28,21 +27,32 @@ define(function (require) {
 		},
 		resetState: function () {
 			this.listing.empty();
+			this.setQuery(null);
 			this.state.set('after', null);
 			this.state.set('atEnd', false);
 			this.state.set('currentPage', null);
-			this.state.set('q', null);
 			if (this.latestXhr) {
 				this.latestXhr.cancel();
 				this.latestXhr = null;
 			}
+		},
+		setQuery: function (query) {
+			query = _.extend({}, query);
+			this.state.set({
+				after: query.after || null,
+				q: query.q || null,
+				sort: query.sort || null,
+				t: query.t || null
+			});
 		},
 		loadMore: function (options, callback) {
 			// use current state as defaults
 			options = _.extend({
 				after: this.state.get('after'),
 				page: this.state.get('currentPage'),
-				q: this.state.get('q')
+				q: this.state.get('q'),
+				sort: this.state.get('sort'),
+				t: this.state.get('t')
 			}, options);
 			// ensure callback is a function even if only a no-op
 			callback = typeof callback === 'function' ? callback : _.identity;
@@ -83,35 +93,60 @@ define(function (require) {
 			this.listing.add(response.data.children);
 			this.trigger('listing');
 		},
-		handleRouteFrontpage: function () {
+		handleRouteFrontpage: function (sort, query) {
+			var page = '/';
+			if (sort) {
+				page += sort;
+			}
 			this.resetState();
-			this.state.set('currentPage', '/');
+			this.setQuery(query);
+			this.state.set('currentPage', page);
 			this.loadMore();
 		},
-		handleRouteSubreddit: function (subreddit) {
+		handleRouteSubreddit: function (subreddit, sort, query) {
+			var page = '/r/' + subreddit;
+			if (sort) {
+				page += '/' + sort;
+			}
 			this.resetState();
-			this.state.set('currentPage', '/r/' + subreddit);
+			this.setQuery(query);
+			this.state.set('currentPage', page);
 			this.loadMore();
 		},
-		handleRouteUsername: function (username) {
+		handleRouteUsername: function (username, sort, query) {
+			var page = '/user/' + username;
+			if (sort) {
+				page += '/' + sort;
+			}
 			this.resetState();
-			this.state.set('currentPage', '/user/' + username);
+			this.setQuery(query);
+			this.state.set('currentPage', page);
 			this.loadMore();
 		},
-		handleRouteMulti: function (username, multi) {
+		handleRouteMulti: function (username, multi, sort, query) {
+			var page = '/user/' + username + '/m/' + multi;
+			if (sort) {
+				page += '/' + sort;
+			}
 			this.resetState();
-			this.state.set('currentPage', '/user/' + username + '/m/' + multi);
+			this.setQuery(query);
+			this.state.set('currentPage', page);
 			this.loadMore();
 		},
-		handleRouteDomain: function (domain) {
+		handleRouteDomain: function (domain, sort, query) {
+			var page = '/domain/' + domain;
+			if (sort) {
+				page += '/' + sort;
+			}
 			this.resetState();
-			this.state.set('currentPage', '/domain/' + domain);
+			this.setQuery(query);
+			this.state.set('currentPage', page);
 			this.loadMore();
 		},
 		handleRouteSearch: function (query) {
 			this.resetState();
+			this.setQuery(query);
 			this.state.set('currentPage', '/search');
-			this.state.set('q', query.q);
 			this.loadMore();
 		}
 	});
