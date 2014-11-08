@@ -9,7 +9,7 @@ define(function (require) {
 			_.bindAll(this,
 				'parseCurrent', 'hitFrontPage', 'hitSubreddit', 'hitUserpage',
 				'hitDomain', 'hitComments', 'hitSearch', 'hitSubmit',
-				'hitMulti');
+				'hitMulti', 'hitSubredditComments');
 			crossroads.addRoute('/:sort:/:?query:', this.hitFrontPage);
 			crossroads.addRoute('/r/{subreddit}/:sort:/:?query:', this.hitSubreddit);
 			crossroads.addRoute('/u/{username}/:sort:/:?query:', this.hitUserpage);
@@ -18,6 +18,7 @@ define(function (require) {
 			crossroads.addRoute('/user/{username}/m/{multi}/:sort:/:?query:', this.hitMulti);
 			crossroads.addRoute('/domain/{domain}/:sort:/:?query:', this.hitDomain);
 			crossroads.addRoute('/comments/{id}:?query:', this.hitComments);
+			crossroads.addRoute('/r/{subreddit}/comments/{id}:?query:', this.hitSubredditComments);
 			crossroads.addRoute('/search:?query:', this.hitSearch);
 			crossroads.addRoute('/submit:?query:', this.hitSubmit);
 		},
@@ -37,6 +38,9 @@ define(function (require) {
 			this.trigger('route:domain', domain, sort, query);
 		},
 		hitComments: function (id, query) {
+			this.trigger('route:comments', id, query);
+		},
+		hitSubredditComments: function (subreddit, id, query) {
 			this.trigger('route:comments', id, query);
 		},
 		hitSearch: function (query) {
