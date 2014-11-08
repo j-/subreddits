@@ -13,17 +13,12 @@ define(function (require) {
 				currentPage: null
 			});
 			this.latestXhr = null;
-			this.initRouter();
-		},
-		initRouter: function () {
-			this.router.start();
 			this.router.on('route:subreddit', this.handleRouteSubreddit);
 			this.router.on('route:frontpage', this.handleRouteFrontpage);
 			this.router.on('route:username', this.handleRouteUsername);
 			this.router.on('route:multi', this.handleRouteMulti);
 			this.router.on('route:domain', this.handleRouteDomain);
 			this.router.on('route:search', this.handleRouteSearch);
-			this.router.parseCurrent();
 		},
 		resetState: function () {
 			this.listing.empty();

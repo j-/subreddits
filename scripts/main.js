@@ -46,6 +46,7 @@ define(function (require) {
 	var Listing = require('collections/Listing');
 	var ListingController = require('controllers/ListingController');
 	var pagerouter = require('modules/pagerouter');
+	pagerouter.start();
 
 	var listing = new Listing();
 	var controller = new ListingController({
@@ -53,29 +54,18 @@ define(function (require) {
 		router: pagerouter
 	});
 
-	var ListingView = require('views/InfiniteScrollListingView');
-	var listingview = new ListingView({
-		id: 'listing',
-		watch: listing,
-		controller: controller,
-		scrollThreshold: 1200,
-		scrollCallback: function (done) {
-			if (!controller.end) {
-				controller.loadMore({
-					limit: 5
-				}, done);
-			}
-			else {
-				controller.on('listing', done);
-			}
-		}
+	var MainView = require('views/MainView');
+	var mainView = new MainView({
+		listing: listing,
+		router: pagerouter,
+		controller: controller
 	});
 
-	listingview.render();
-	listingview.start();
+	mainView.render();
+	mainView.start();
 
 	$(function () {
-		$(document.body).append(listingview.el);
+		$(document.body).append(mainView.el);
 	});
 
 	var HeaderView = require('views/HeaderView');
@@ -89,4 +79,6 @@ define(function (require) {
 	$(function () {
 		$(document.body).append(header.el);
 	});
+
+	pagerouter.parseCurrent();
 });
