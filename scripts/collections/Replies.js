@@ -1,5 +1,5 @@
 define(function (require) {
 	var comments = require('modules/comments');
-	var CommentModel = comments.CommentModel;
-	return CommentModel;
+	var Replies = comments.Replies;
+	return Replies;
 });
