@@ -10,12 +10,12 @@ define(function (require) {
 	var StorageController = require('controllers/StorageController');
 
 	var all = new MultiredditCollection();
-	var view = new SubredditSelector({
+	var sidebar = new SubredditSelector({
 		id: 'subreddit-selector',
 		watch: all
 	});
-	view.render();
-	view.start();
+	sidebar.render();
+	sidebar.start();
 
 	var data = all.get();
 	all.set(data);
@@ -26,10 +26,6 @@ define(function (require) {
 	});
 
 	storage.load();
-
-	$(function () {
-		$(document.body).append(view.el);
-	});
 
 	$(window).on('beforeunload', function () {
 		storage.save();
@@ -64,10 +60,6 @@ define(function (require) {
 	mainView.render();
 	mainView.start();
 
-	$(function () {
-		$(document.body).append(mainView.el);
-	});
-
 	var HeaderView = require('views/HeaderView');
 	var header = new HeaderView();
 	header.render();
@@ -77,7 +69,10 @@ define(function (require) {
 	});
 
 	$(function () {
-		$(document.body).append(header.el);
+		$(document.body)
+			.append(header.el)
+			.append(mainView.el)
+			.append(sidebar.el);
 	});
 
 	pagerouter.parseCurrent();
