@@ -34,37 +34,4 @@ define(function (require, exports) {
 		});
 		return Promise.resolve(xhr).cancellable();
 	};
-
-	exports.getRedditListing = function (options, callback) {
-		var settings = _.extend({
-			page: null,
-			sort: null,
-			t: null
-		}, options);
-		if (settings.page) {
-			settings.page = '/r/' + settings.page + '/';
-		}
-		else {
-			settings.page = '/';
-		}
-		if (settings.sort) {
-			settings.page += settings.sort;
-			delete settings.sort;
-		}
-		return exports.getListing(settings, callback);
-	};
-
-	exports.getUserListing = function (options, callback) {
-		var settings = _.extend({}, options);
-		if (settings.page) {
-			settings.page = '/user/' + settings.page;
-		}
-		return exports.getListing(settings, callback);
-	};
-
-	exports.getSubredditAbout = function (options, callback) {
-		var settings = _.extend({}, options);
-		settings.page += '/about';
-		return exports.getRedditListing(settings, callback);
-	};
 });
