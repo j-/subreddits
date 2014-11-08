@@ -7,7 +7,7 @@ define(function (require) {
 		init: function (options) {
 			_.extend(this, _.pick(options, 'router', 'controller', 'listing'));
 			_.bindAll(this, 'scrollCallback');
-			this.listingView = new InfiniteScrollListingView({
+			this.listingView = this.addChildView(InfiniteScrollListingView, {
 				id: 'listing',
 				watch: this.listing,
 				controller: this.controller,
@@ -17,7 +17,7 @@ define(function (require) {
 		},
 		render: function () {
 			this.empty();
-			this.listingView.render();
+			this.renderChildViews();
 			this.$el.append(this.listingView.$el);
 		},
 		scrollCallback: function (done) {
@@ -30,14 +30,6 @@ define(function (require) {
 				// todo: once
 				this.controller.on('listing', done);
 			}
-		},
-		start: function () {
-			ok.$View.prototype.start.call(this);
-			this.listingView.start();
-		},
-		stop: function () {
-			ok.$View.prototype.stop.call(this);
-			this.listingView.stop();
 		}
 	});
 	return MainView;
