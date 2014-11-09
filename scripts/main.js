@@ -40,21 +40,31 @@ define(function (require) {
 	}
 
 	var Listing = require('collections/Listing');
+	var CommentsModel = require('models/CommentsModel');
 	var ListingController = require('controllers/ListingController');
+	var CommentsController = require('controllers/CommentsController');
 	var pagerouter = require('modules/pagerouter');
 	pagerouter.start();
 
 	var listing = new Listing();
-	var controller = new ListingController({
+	var listingController = new ListingController({
 		listing: listing,
+		router: pagerouter
+	});
+
+	var comments = new CommentsModel();
+	var commentsController = new CommentsController({
+		comments: comments,
 		router: pagerouter
 	});
 
 	var MainView = require('views/MainView');
 	var mainView = new MainView({
-		listing: listing,
 		router: pagerouter,
-		controller: controller
+		listing: listing,
+		listingController: listingController,
+		comments: comments,
+		commentsController: commentsController
 	});
 
 	mainView.render();
@@ -65,7 +75,7 @@ define(function (require) {
 	header.render();
 	header.start();
 	header.on('refresh', function () {
-		controller.reload();
+		listingController.reload();
 	});
 
 	$(function () {

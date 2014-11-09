@@ -6,18 +6,19 @@ define(function (require) {
 	var MainView = ok.$View.extend({
 		className: 'main-view',
 		init: function (options) {
-			_.extend(this, _.pick(options, 'router', 'controller', 'listing'));
+			_.extend(this, _.pick(options, 'router', 'listing', 'listingController', 'comments', 'commentsController'));
 			_.bindAll(this, 'scrollCallback', 'handleRouteListing', 'handleRouteComments');
 			this.listingView = this.addChildView(InfiniteScrollListingView, {
 				id: 'listing',
 				watch: this.listing,
-				controller: this.controller,
+				controller: this.listingController,
 				scrollThreshold: 1200,
 				scrollCallback: this.scrollCallback
 			});
 			this.commentsView = this.addChildView(CommentsView, {
 				id: 'comments',
-				controller: this.controller
+				watch: this.comments,
+				controller: this.commentsController
 			});
 			this.routeState = new ok.Property();
 			this.listenTo(this.routeState, 'change', this.renderCurrentRoute);
@@ -59,14 +60,14 @@ define(function (require) {
 			this.$el.append(this.commentsView.$el);
 		},
 		scrollCallback: function (done) {
-			if (!this.controller.end) {
-				this.controller.loadMore({
+			if (!this.listingController.end) {
+				this.listingController.loadMore({
 					limit: 5
 				}, done);
 			}
 			else {
 				// todo: once
-				this.controller.on('listing', done);
+				this.listingController.on('listing', done);
 			}
 		}
 	});
