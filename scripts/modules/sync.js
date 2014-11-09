@@ -2,8 +2,7 @@ define(function (require, exports) {
 	var $ = require('jquery');
 	var _ = require('underscore');
 	var Promise = require('bluebird');
-
-	exports.getListing = function (options) {
+	exports.getData = function (options) {
 		var settings = _.extend({
 			page: null,
 			// after / before - only one should be specified. these indicate the

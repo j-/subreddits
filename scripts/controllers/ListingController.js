@@ -59,7 +59,7 @@ define(function (require) {
 			if (this.latestXhr) {
 				this.latestXhr.cancel();
 			}
-			this.latestXhr = sync.getListing(options)
+			this.latestXhr = sync.getData(options)
 				.bind(this)
 				.catch(this.handleError)
 				.then(this.handleResponse);
