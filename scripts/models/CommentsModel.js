@@ -6,6 +6,10 @@ define(function (require) {
 		schema: {
 			link: LinkModel,
 			replies: Replies
+		},
+		defaults: {
+			link: null,
+			replies: null
 		}
 	});
 	return CommentsModel;
