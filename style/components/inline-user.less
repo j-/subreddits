@@ -1,6 +1,4 @@
 .inline-user {
-	padding: 2px;
-	margin-right: -2px;
 	&,
 	&:focus,
 	&:hover {
@@ -15,13 +13,27 @@
 			text-decoration: none;
 		}
 	}
-	&.is-op {
-		border-radius: 4px;
-		background-color: #0055DF;
+	&.is-op,
+	&.is-mod,
+	&.is-admin,
+	&.is-special {
+		padding: 2px;
 		color: #fff;
 		.name,
 		&:hover {
 			color: #fff;
 		}
+	}
+	&.is-op {
+		background-color: #0055DF;
+	}
+	&.is-mod {
+		background-color: #228822;
+	}
+	&.is-admin {
+		background-color: #FF0011;
+	}
+	&.is-special {
+		background-color: #BE1337;
 	}
 }
