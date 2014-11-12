@@ -15,7 +15,7 @@
     "jquery": "~2.1.1",
     "underscore": "~1.7.0",
     "text": "~2.0.12",
-    "ok": "git://github.com/j-/ok.git#~0.3.0",
+    "ok": "git://github.com/j-/ok.git#~0.3.1",
     "requirejs": "~2.1.15",
     "js-signals": "~1.0.0",
     "crossroads.js": "git://github.com/millermedeiros/crossroads.js.git#~0.12.0",
