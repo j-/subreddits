@@ -38,7 +38,7 @@ define(function (require) {
 		},
 		processResponse: function (response) {
 			this.empty();
-			this.gfyView = new GfyItemView({
+			this.gfyView = this.addChildView(GfyItemView, {
 				watch: new GfyItemModel(response.gfyItem)
 			});
 			this.gfyView.render();
@@ -53,18 +53,6 @@ define(function (require) {
 		},
 		showError: function () {
 			this.$el.text('There was an error loading this tweet');
-		},
-		start: function () {
-			EmbeddedView.prototype.start.call(this);
-			if (this.gfyView) {
-				this.gfyView.start();
-			}
-		},
-		stop: function () {
-			EmbeddedView.prototype.stop.call(this);
-			if (this.gfyView) {
-				this.gfyView.stop();
-			}
 		}
 	});
 	EmbeddedGfycatView.gfycatExp = /^https?:\/\/(?:(?:www|zippy|fat|giant)\.)?gfycat\.com\/(\w+)(?:\.\w+)?/i;
