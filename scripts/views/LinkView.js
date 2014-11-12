@@ -19,28 +19,28 @@ define(function (require) {
 			this.author = new AccountModel({
 				name: this.watch.get('author')
 			});
-			this.inlineUserView = new InlineUserView({
-				watch: this.author
-			});
 			this.subreddit = new SubredditModel({
 				display_name: this.watch.get('subreddit')
 			});
-			this.linkTitleView = new LinkTitleView({
+			this.inlineUserView = this.addChildView(InlineUserView, {
+				watch: this.author
+			});
+			this.linkTitleView = this.addChildView(LinkTitleView, {
 				watch: this.watch
 			});
-			this.inlineSubredditView = new InlineSubredditView({
+			this.inlineSubredditView = this.addChildView(InlineSubredditView, {
 				watch: this.subreddit
 			});
-			this.timeView = new TimeView({
+			this.timeView = this.addChildView(TimeView, {
 				watch: this.watch.getProperty('created_utc')
 			});
-			this.goldView = new GoldView({
+			this.goldView = this.addChildView(GoldView, {
 				watch: this.watch.getProperty('gilded')
 			});
 			this.embeddedView = null;
 			var EmbeddedView = embedded.identify(this.watch);
 			if (EmbeddedView) {
-				this.embeddedView = new EmbeddedView({
+				this.embeddedView = this.addChildView(EmbeddedView, {
 					watch: this.watch
 				});
 			}
@@ -187,32 +187,17 @@ define(function (require) {
 			}
 		},
 		start: function () {
+			ok.$View.prototype.start.call(this);
 			this.stop();
 			this.$el.on('click', '.thumbnail', this.handleClickThumbnail);
 			this.$el.on('click', '.comments', this.handleClickComments);
 			this.$el.on('click', '.domain', this.handleClickDomain);
-			this.linkTitleView.start();
-			this.inlineSubredditView.start();
-			this.inlineUserView.start();
-			this.timeView.start();
-			this.goldView.start();
-			if (this.embeddedView) {
-				this.embeddedView.start();
-			}
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
 			this.$el.off('click', '.thumbnail', this.handleClickThumbnail);
 			this.$el.off('click', '.comments', this.handleClickComments);
 			this.$el.off('click', '.domain', this.handleClickDomain);
-			this.linkTitleView.stop();
-			this.inlineSubredditView.stop();
-			this.inlineUserView.stop();
-			this.timeView.stop();
-			this.goldView.stop();
-			if (this.embeddedView) {
-				this.embeddedView.stop();
-			}
 		}
 	});
 	return LinkView;
