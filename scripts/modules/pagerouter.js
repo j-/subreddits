@@ -30,10 +30,11 @@ define(function (require) {
 	var expComments = re(sl('^/(?:r/' + oneOrMoreSubreddits + '/)?comments/(\\w+)') + optionalSlug + optionalSlash + optionalQuery$, 'i');
 	var expSearch = re(sl('^/search') + optionalSlash + optionalQuery$, 'i');
 	var expSubmit = re(sl('^/submit') + optionalSlash + optionalQuery$, 'i');
+	var exp404 = re('^(.*)$');
 	// controller definition
 	var PageRouter = Controller.extend({
 		init: function () {
-			_.bindAll(this, 'parseCurrent', 'hitFrontPage', 'hitSubreddit', 'hitUserpage', 'hitDomain', 'hitSearch', 'hitSubmit', 'hitMulti', 'hitSubredditComments');
+			_.bindAll(this, 'parseCurrent', 'hitFrontPage', 'hitSubreddit', 'hitUserpage', 'hitDomain', 'hitSearch', 'hitSubmit', 'hitMulti', 'hitSubredditComments', 'hit404');
 			crossroads.addRoute(expFrontPage, this.hitFrontPage);
 			crossroads.addRoute(expSubreddit, this.hitSubreddit);
 			crossroads.addRoute(expUserpage, this.hitUserpage);
@@ -42,6 +43,7 @@ define(function (require) {
 			crossroads.addRoute(expComments, this.hitSubredditComments);
 			crossroads.addRoute(expSearch, this.hitSearch);
 			crossroads.addRoute(expSubmit, this.hitSubmit);
+			crossroads.addRoute(exp404, this.hit404);
 		},
 		hitFrontPage: function (sort, query) {
 			this.trigger('route:frontpage', sort, qs.parse(query));
@@ -66,6 +68,10 @@ define(function (require) {
 		},
 		hitSubmit: function (query) {
 			this.trigger('route:submit', qs.parse(query));
+		},
+		hit404: function (url) {
+			console.warn('Could not match route', url);
+			this.trigger('route:404', url);
 		},
 		go: function (path) {
 			location.hash = path;
