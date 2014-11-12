@@ -5,17 +5,43 @@ define(function (require) {
 	var _ = require('underscore');
 	var $ = require('jquery');
 	var Controller = ok.Controller;
+	// expression components
+	var sort = '(new|rising|controversial|top|gilded|ads)';
+	var optionalSort = '(?:\\/' + sort + ')?';
+	var optionalQuery$ = '(?:\\?(.*?))?$';
+	var optionalSlash = '\\/?';
+	var oneOrMoreSubreddits = '(\\w+(?:\\+\\w+)*)';
+	var optionalSlug = '(?:\\/\\w+)?';
+	// convenience functions
+	var re = function (str, flags) {
+		// create regular expression
+		return new RegExp(str, flags);
+	};
+	var sl = function (str) {
+		// escape forward slashes
+		return String(str).replace(/\//g, '\\/');
+	};
+	// matching expressions
+	var expFrontPage = re('^$|^' + optionalSort + optionalSlash + optionalQuery$, 'i');
+	var expSubreddit = re(sl('^/r/') + oneOrMoreSubreddits + optionalSort + optionalSlash + optionalQuery$, 'i');
+	var expUserpage = re(sl('^/u(?:ser)?/(\\w+)') + optionalSlash + optionalQuery$, 'i');
+	var expMulti = re(sl('^/u(?:ser)?/(\\w+)/m/(\\w+)') + optionalSlash + optionalQuery$, 'i');
+	var expDomain = re(sl('^/domain?/(\\w+(?:\\.\\w+)+)') + optionalSlash + optionalSort + optionalQuery$, 'i');
+	var expComments = re(sl('^/(?:r/' + oneOrMoreSubreddits + '/)?comments/(\\w+)') + optionalSlug + optionalSlash + optionalQuery$, 'i');
+	var expSearch = re(sl('^/search') + optionalSlash + optionalQuery$, 'i');
+	var expSubmit = re(sl('^/submit') + optionalSlash + optionalQuery$, 'i');
+	// controller definition
 	var PageRouter = Controller.extend({
 		init: function () {
 			_.bindAll(this, 'parseCurrent', 'hitFrontPage', 'hitSubreddit', 'hitUserpage', 'hitDomain', 'hitSearch', 'hitSubmit', 'hitMulti', 'hitSubredditComments');
-			crossroads.addRoute(/^$|^\/(?:(new|rising|controversial|top|gilded|ads)\/?)?(?:\?(.*?))?$/i, this.hitFrontPage);
-			crossroads.addRoute(/^\/r\/(\w+)(?:\/(\w+))?\/?(?:\?(.*?))?$/i, this.hitSubreddit);
-			crossroads.addRoute(/^\/u(?:ser)?\/(\w+)\/?(?:\?(.*?))?$/i, this.hitUserpage);
-			crossroads.addRoute(/^\/u(?:ser)?\/(\w+)\/m\/(\w+)(?:\/(\w+))?\/?(?:\?(.*?))?$/i, this.hitMulti);
-			crossroads.addRoute(/^\/domain\/(.*?)\/?(?:\?(.*?))?$/i, this.hitDomain);
-			crossroads.addRoute(/^\/(?:r\/(\w+)\/)?comments\/?(\w+)\/?(?:\?(.*?))?$/i, this.hitSubredditComments);
-			crossroads.addRoute(/^\/search\/?(?:\?(.*?))?$/i, this.hitSearch);
-			crossroads.addRoute(/^\/submit\/?(?:\?(.*?))?$/i, this.hitSubmit);
+			crossroads.addRoute(expFrontPage, this.hitFrontPage);
+			crossroads.addRoute(expSubreddit, this.hitSubreddit);
+			crossroads.addRoute(expUserpage, this.hitUserpage);
+			crossroads.addRoute(expMulti, this.hitMulti);
+			crossroads.addRoute(expDomain, this.hitDomain);
+			crossroads.addRoute(expComments, this.hitSubredditComments);
+			crossroads.addRoute(expSearch, this.hitSearch);
+			crossroads.addRoute(expSubmit, this.hitSubmit);
 		},
 		hitFrontPage: function (sort, query) {
 			this.trigger('route:frontpage', sort, qs.parse(query));
