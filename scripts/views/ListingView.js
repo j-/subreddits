@@ -7,6 +7,9 @@ define(function (require) {
 	var LinkModel = require('models/LinkModel');
 	var LinkView = require('views/LinkView');
 	var ListingView = ok.CollectionView.extend({
+		init: function () {
+			this.expanded = false;
+		},
 		getConstructor: function (model) {
 			if (model instanceof CommentModel) {
 				return FullCommentView;
@@ -16,17 +19,21 @@ define(function (require) {
 			}
 			throw new Error('Unrecognised item in listing');
 		},
-		getItemView: function () {
-			var view = ok.CollectionView.prototype.getItemView.apply(this, arguments);
+		addChildView: function (view) {
+			ok.CollectionView.prototype.addChildView.apply(this, arguments);
 			$(view.el).addClass('listing-item');
-			return view;
+			if (this.expanded) {
+				view.showEmbedded();
+			}
 		},
 		expandAll: function () {
+			this.expanded = true;
 			_.each(this.children, function (child) {
 				child.view.showEmbedded();
 			});
 		},
 		collapseAll: function () {
+			this.expanded = false;
 			_.each(this.children, function (child) {
 				child.view.hideEmbedded();
 			});
