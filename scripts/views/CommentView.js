@@ -19,16 +19,16 @@ define(function (require) {
 			this.author = new AccountModel({
 				name: this.watch.get('author')
 			});
-			this.inlineAuthorUserView = new InlineUserView({
+			this.inlineAuthorUserView = this.addChildView(InlineUserView, {
 				watch: this.author
 			});
-			this.timeView = new TimeView({
+			this.timeView = this.addChildView(TimeView, {
 				watch: this.watch.getProperty('created_utc')
 			});
-			this.userContentView = new UserContentView({
+			this.userContentView = this.addChildView(UserContentView, {
 				watch: this.watch.getProperty('body_html')
 			});
-			this.goldView = new GoldView({
+			this.goldView = this.addChildView(GoldView, {
 				watch: this.watch.getProperty('gilded')
 			});
 		},
@@ -86,20 +86,6 @@ define(function (require) {
 			var linkId = this.watch.get('link_id').substring(3);
 			var href = 'http://www.reddit.com/comments/' + linkId;
 			this.$('.actions .full-comments').attr('href', href);
-		},
-		start: function () {
-			this.stop();
-			this.inlineAuthorUserView.start();
-			this.timeView.start();
-			this.goldView.start();
-			this.userContentView.start();
-		},
-		stop: function () {
-			ok.$View.prototype.stop.call(this);
-			this.inlineAuthorUserView.stop();
-			this.timeView.stop();
-			this.goldView.stop();
-			this.userContentView.stop();
 		}
 	});
 	return CommentView;
