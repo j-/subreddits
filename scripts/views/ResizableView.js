@@ -63,6 +63,7 @@ define(function (require) {
 			// no-op
 		},
 		start: function () {
+			ok.$View.prototype.start.call(this);
 			this.$el.on('mousedown', this.handleMouseDown);
 			this.$el.on('click', this.handleClick);
 		},
