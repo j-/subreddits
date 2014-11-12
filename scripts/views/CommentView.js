@@ -48,10 +48,27 @@ define(function (require) {
 		renderAuthor: function () {
 			var author = this.watch.get('author');
 			var linkAuthor = this.watch.get('link_author');
+			var distinguished = this.watch.get('distinguished');
 			var $author = this.$('.comment-author');
 			this.inlineAuthorUserView.setElement($author);
 			this.inlineAuthorUserView.render();
-			$author.toggleClass('is-op', author === linkAuthor);
+			if (author === linkAuthor) {
+				this.inlineAuthorUserView.showSubmitter();
+			}
+			if (distinguished) {
+				// most likely. subreddit moderator.
+				if (distinguished === 'moderator') {
+					this.inlineAuthorUserView.showModerator();
+				}
+				// less likely. reddit staff member.
+				else if (distinguished === 'admin') {
+					this.inlineAuthorUserView.showAdmin();
+				}
+				// least likely. special reddit distinguishment.
+				else if (distinguished === 'special') {
+					this.inlineAuthorUserView.showSpecial();
+				}
+			}
 		},
 		renderScore: function () {
 			var score = this.watch.get('score');

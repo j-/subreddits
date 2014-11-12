@@ -100,10 +100,25 @@ define(function (require) {
 			this.timeView.render();
 		},
 		renderAuthor: function () {
+			var distinguished = this.watch.get('distinguished');
 			this.inlineUserView.render();
 			this.$('.author')
 				.empty()
 				.append(this.inlineUserView.el);
+			if (distinguished) {
+				// most likely. subreddit moderator.
+				if (distinguished === 'moderator') {
+					this.inlineUserView.showModerator();
+				}
+				// less likely. reddit staff member.
+				else if (distinguished === 'admin') {
+					this.inlineUserView.showAdmin();
+				}
+				// least likely. special reddit distinguishment.
+				else if (distinguished === 'special') {
+					this.inlineUserView.showSpecial();
+				}
+			}
 		},
 		renderComments: function () {
 			var commentURL = this.watch.getCommentURL();
