@@ -77,6 +77,12 @@ define(function (require) {
 	header.on('refresh', function () {
 		listingController.reload();
 	});
+	header.on('expandall', function () {
+		mainView.expandAll();
+	});
+	header.on('collapseall', function () {
+		mainView.collapseAll();
+	});
 
 	$(function () {
 		$(document.body)

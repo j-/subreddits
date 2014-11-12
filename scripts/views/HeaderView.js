@@ -29,7 +29,8 @@ define(function (require) {
 	var HeaderView = ok.$View.extend({
 		className: 'listing-controls navbar navbar-default navbar-fixed-top navbar-inverse',
 		init: function () {
-			_.bindAll(this, 'handleClickSort', 'handleClickRefresh');
+			_.bindAll(this, 'handleClickSort', 'handleClickRefresh', 'handleClickExpandToggle');
+			this.expanded = false;
 		},
 		render: function () {
 			this.$el.html(html);
@@ -49,6 +50,16 @@ define(function (require) {
 			e.preventDefault();
 			this.trigger('refresh');
 		},
+		handleClickExpandToggle: function (e) {
+			e.preventDefault();
+			this.expanded = !this.expanded;
+			if (this.expanded) {
+				this.expandAll();
+			}
+			else {
+				this.collapseAll();
+			}
+		},
 		indicateSort: function (sort, t) {
 			sort = displaySort[sort];
 			var $el = this.$('.sorting-by')
@@ -63,14 +74,32 @@ define(function (require) {
 					.appendTo($el);
 			}
 		},
+		expandAll: function () {
+			this.trigger('expandall');
+			this.$('.action-expandtoggle .glyphicon')
+				.removeClass('glyphicon-plus')
+				.addClass('glyphicon-minus');
+			this.$('.action-expandtoggle .button-text')
+				.text('Collapse all');
+		},
+		collapseAll: function () {
+			this.trigger('collapseall');
+			this.$('.action-expandtoggle .glyphicon')
+				.removeClass('glyphicon-minus')
+				.addClass('glyphicon-plus');
+			this.$('.action-expandtoggle .button-text')
+				.text('Expand all');
+		},
 		start: function () {
 			this.$el.on('click', 'a[data-sort]', this.handleClickSort);
 			this.$el.on('click', '.action-refresh', this.handleClickRefresh);
+			this.$el.on('click', '.action-expandtoggle', this.handleClickExpandToggle);
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
 			this.$el.off('click', 'a[data-sort]', this.handleClickSort);
 			this.$el.off('click', '.action-refresh', this.handleClickRefresh);
+			this.$el.off('click', '.action-expandtoggle', this.handleClickExpandToggle);
 		}
 	});
 	return HeaderView;

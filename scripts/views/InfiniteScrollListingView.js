@@ -64,6 +64,12 @@ define(function (require) {
 			var threshold = this.scrollThreshold;
 			return height - bottom < threshold;
 		},
+		expandAll: function () {
+			this.listingView.expandAll();
+		},
+		collapseAll: function () {
+			this.listingView.collapseAll();
+		},
 		start: function () {
 			this.stop();
 			this.listingView.start();

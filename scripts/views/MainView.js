@@ -69,6 +69,12 @@ define(function (require) {
 				// todo: once
 				this.listingController.on('listing', done);
 			}
+		},
+		expandAll: function () {
+			this.listingView.expandAll();
+		},
+		collapseAll: function () {
+			this.listingView.collapseAll();
 		}
 	});
 	return MainView;

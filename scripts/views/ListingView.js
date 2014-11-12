@@ -20,6 +20,16 @@ define(function (require) {
 			var view = ok.CollectionView.prototype.getItemView.apply(this, arguments);
 			$(view.el).addClass('listing-item');
 			return view;
+		},
+		expandAll: function () {
+			_.each(this.children, function (child) {
+				child.view.showEmbedded();
+			});
+		},
+		collapseAll: function () {
+			_.each(this.children, function (child) {
+				child.view.hideEmbedded();
+			});
 		}
 	});
 	return ListingView;
