@@ -202,8 +202,8 @@ define(function (require) {
 			}
 		},
 		start: function () {
-			ok.$View.prototype.start.call(this);
 			this.stop();
+			ok.$View.prototype.start.call(this);
 			this.$el.on('click', '.thumbnail', this.handleClickThumbnail);
 			this.$el.on('click', '.comments', this.handleClickComments);
 			this.$el.on('click', '.domain', this.handleClickDomain);
