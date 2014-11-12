@@ -45,6 +45,18 @@ define(function (require) {
 				pagerouter.go('/user/' + name);
 			}
 		},
+		showSubmitter: function () {
+			this.$el.addClass('is-op');
+		},
+		showModerator: function () {
+			this.$el.addClass('is-mod');
+		},
+		showAdmin: function () {
+			this.$el.addClass('is-admin');
+		},
+		showSpecial: function () {
+			this.$el.addClass('is-special');
+		},
 		start: function () {
 			this.stop();
 			this.$el.on('click', this.handleClick);
