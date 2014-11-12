@@ -14,7 +14,8 @@ var config = {
 		'crossroads': '../bower_components/crossroads.js/dist/crossroads',
 		'marked': '../bower_components/marked/lib/marked',
 		'moment': '../bower_components/moment/moment',
-		'bluebird': '../bower_components/bluebird/js/browser/bluebird'
+		'bluebird': '../bower_components/bluebird/js/browser/bluebird',
+		'querystring': '../bower_components/query-string/query-string'
 	},
 	shim: {
 		'ok': {

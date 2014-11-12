@@ -108,11 +108,8 @@ define(function (require) {
 			this.state.set('currentPage', page);
 			this.loadMore();
 		},
-		handleRouteUsername: function (username, sort, query) {
+		handleRouteUsername: function (username, query) {
 			var page = '/user/' + username;
-			if (sort) {
-				page += '/' + sort;
-			}
 			this.resetState();
 			this.setQuery(query);
 			this.state.set('currentPage', page);
