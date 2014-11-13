@@ -25,6 +25,8 @@
 @import "utilities";
 @import "responsive-utilities";
 
+@import "core/variables";
+
 @import "components/subreddit-selector";
 @import "components/link";
 @import "components/link-title";
@@ -39,7 +41,7 @@
 @import "components/resizable";
 
 body {
-	background: rgb(237, 240, 241);
+	background: @body-bg;
 	margin-top: @navbar-height;
 	margin-left: 250px;
 }
