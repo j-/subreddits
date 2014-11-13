@@ -1,10 +1,20 @@
-#listing {
-	padding: 8px;
+.listing-items {
+	padding: @base-gutter;
 	padding-bottom: 600px;
 	.listing-item {
-		background: @listing-item-bg;
+		background-color: @listing-item-bg;
 		border: 1px solid @listing-item-border-color;
-		padding: 4px;
-		margin: 0 0 8px 0;
+		padding: @base-padding;
+		margin: 0 0 @base-gutter 0;
+
+		// posts marked NSFW
+		&.over18 {
+			background-color: @nsfw-bg;
+		}
+
+		// posts stickied to the top of listing
+		&.stickied {
+			background-color: @sticky-bg;
+		}
 	}
 }

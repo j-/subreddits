@@ -4,16 +4,6 @@
 	min-height: 70px;
 	position: relative;
 
-	// posts marked NSFW
-	&.over18 .details {
-		background: rgba(200, 0, 0, 0.05);
-	}
-
-	// posts stickied to the top of listing
-	&.stickied .details {
-		background: rgba(0, 200, 0, 0.05);
-	}
-
 	.thumbnail {
 		display: block;
 		float: left;
@@ -29,7 +19,7 @@
 		background-size: cover;
 		text-align: center;
 		margin: 1px;
-		margin-right: 8px;
+		margin-right: @base-gutter;
 		position: relative;
 		z-index: 2;
 		border-radius: 0;

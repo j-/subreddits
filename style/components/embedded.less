@@ -4,12 +4,10 @@
 	box-sizing: border-box;
 	overflow: auto;
 	cursor: auto;
-	&:before {
-		.nav-divider();
-		display: block;
-		content: '';
-		margin: 4px 0;
-	}
+	margin: @base-padding -@base-padding -@base-padding;
+	padding: @base-padding;
+	border-top: 1px solid @listing-item-border-color;
+	background-color: @embedded-bg;
 }
 .embedded {
 	.embedded-selftext,
