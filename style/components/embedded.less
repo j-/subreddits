@@ -1,16 +1,15 @@
 .link .embedded {
-	.clearfix();
 	display: none;
 	clear: both;
 	box-sizing: border-box;
 	overflow: auto;
 	cursor: auto;
-	background: rgba(0, 0, 0, 0.05);
-	border: 1px solid #ccc;
-	box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.05);
-	margin: 10px 0;
-	padding: 0.5em;
-	padding-left: 77px;
+	&:before {
+		.nav-divider();
+		display: block;
+		content: '';
+		margin: 4px 0;
+	}
 }
 .embedded {
 	.embedded-selftext,
