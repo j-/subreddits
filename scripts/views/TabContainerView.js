@@ -1,24 +1,29 @@
 define(function (require) {
 	var ok = require('ok');
-	require('ok.views');
+	require('ok.dollarview');
 	var $ = require('jquery');
 	var _ = require('underscore');
 	var UP = 38;
 	var LEFT = 37;
 	var DOWN = 40;
 	var RIGHT = 39;
-	var TabContainerView = ok.View.extend({
+	var TabContainerView = ok.$View.extend({
+		init: function () {
+			_.bindAll(this, 'handleKeyDown', 'handleFocus', 'handleFocusItem', 'handleBlur');
+		},
 		start: function () {
 			this.stop();
-			$(window).on('keydown.tabContainerView', _.bind(this.handleKeyDown, this));
-			$(this.el).on('focus.tabContainerView', _.bind(this.handleFocus, this));
-			$(this.el).on('focus.tabContainerView', 'a', _.bind(this.handleFocusItem, this));
-			this.el.addEventListener('blur', _.bind(this.handleBlur, this), true);
+			$(window).on('keydown', this.handleKeyDown);
+			this.$el.on('focus', this.handleFocus);
+			this.$el.on('focus', 'a', this.handleFocusItem);
+			// need to capture, not bubble
+			this.el.addEventListener('blur', this.handleBlur, true);
 		},
 		stop: function () {
-			$(window).off('.tabContainerView');
-			$(this.el).off('.tabContainerView');
-			this.el.removeEventListener('blur');
+			$(window).off('keydown', this.handleKeyDown);
+			this.$el.off('focus', this.handleFocus);
+			this.$el.off('focus', 'a', this.handleFocusItem);
+			this.el.removeEventListener('blur', this.handleBlur);
 		},
 		getSelector: function () {
 			return this.selector || 'a:visible';
@@ -26,7 +31,7 @@ define(function (require) {
 		goUp: function () {
 				var selector = this.getSelector();
 				var $active = $(document.activeElement);
-				var $container = $(this.el);
+				var $container = this.$el;
 				var $items = $container.find(selector);
 				var index = $items.index($active) - 1;
 				index = Math.min(Math.max(index, 0), $items.length);
@@ -35,7 +40,7 @@ define(function (require) {
 		goDown: function () {
 				var selector = this.getSelector();
 				var $active = $(document.activeElement);
-				var $container = $(this.el);
+				var $container = this.$el;
 				var $items = $container.find(selector);
 				var index = $items.index($active) + 1;
 				index = Math.min(Math.max(index, 0), $items.length);
@@ -58,7 +63,7 @@ define(function (require) {
 			}
 		},
 		handleFocus: function () {
-			$(this.el)
+			this.$el
 				.attr('tabindex', -1)
 				.blur();
 			if (this.$lastFocus) {
@@ -67,7 +72,7 @@ define(function (require) {
 			else {
 				var selector = this.getSelector();
 				var $active = $(document.activeElement);
-				var $container = $(this.el);
+				var $container = this.$el;
 				var $items = $container.find(selector);
 				$items.first().focus();
 			}
@@ -76,7 +81,7 @@ define(function (require) {
 			this.$lastFocus = $(document.activeElement);
 		},
 		handleBlur: function () {
-			$(this.el)
+			this.$el
 				.attr('tabindex', 0);
 		}
 	});
