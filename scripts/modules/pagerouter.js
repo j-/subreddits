@@ -24,9 +24,9 @@ define(function (require) {
 	// matching expressions
 	var expFrontPage = re('^$|^' + optionalSort + optionalSlash + optionalQuery$, 'i');
 	var expSubreddit = re(sl('^/r/') + oneOrMoreSubreddits + optionalSort + optionalSlash + optionalQuery$, 'i');
-	var expUserpage = re(sl('^/u(?:ser)?/(\\w+)') + optionalSlash + optionalQuery$, 'i');
-	var expMulti = re(sl('^/u(?:ser)?/(\\w+)/m/(\\w+)') + optionalSlash + optionalQuery$, 'i');
-	var expDomain = re(sl('^/domain?/(\\w+(?:\\.\\w+)+)') + optionalSlash + optionalSort + optionalQuery$, 'i');
+	var expUserpage = re(sl('^/u(?:ser)?/([\\w-]+)') + optionalSlash + optionalQuery$, 'i');
+	var expMulti = re(sl('^/u(?:ser)?/([\\w-]+)/m/([\\w-]+)') + optionalSlash + optionalQuery$, 'i');
+	var expDomain = re(sl('^/domain?/([\\w-]+(?:\\.[\\w-]+)+)') + optionalSlash + optionalSort + optionalQuery$, 'i');
 	var expComments = re(sl('^/(?:r/' + oneOrMoreSubreddits + '/)?comments/(\\w+)') + optionalSlug + optionalSlash + optionalQuery$, 'i');
 	var expSearch = re(sl('^/search') + optionalSlash + optionalQuery$, 'i');
 	var expSubmit = re(sl('^/submit') + optionalSlash + optionalQuery$, 'i');
