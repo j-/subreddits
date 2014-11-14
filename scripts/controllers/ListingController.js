@@ -72,6 +72,14 @@ define(function (require) {
 			this.state.set('after', null);
 			this.loadMore();
 		},
+		search: function (query) {
+			this.resetState();
+			this.setQuery({
+				q: query
+			});
+			this.state.set('currentPage', '/search');
+			this.loadMore();
+		},
 		handleError: function (err) {
 			console.log('Error fetching listing', err);
 		},

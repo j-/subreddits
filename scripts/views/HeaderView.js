@@ -29,7 +29,7 @@ define(function (require) {
 	var HeaderView = ok.$View.extend({
 		className: 'listing-controls navbar navbar-default navbar-fixed-top navbar-inverse',
 		init: function () {
-			_.bindAll(this, 'handleClickSort', 'handleClickRefresh', 'handleClickExpandToggle');
+			_.bindAll(this, 'handleClickSort', 'handleClickRefresh', 'handleClickExpandToggle', 'handleSubmitSearch');
 			this.expanded = false;
 		},
 		render: function () {
@@ -58,6 +58,14 @@ define(function (require) {
 			}
 			else {
 				this.collapseAll();
+			}
+		},
+		handleSubmitSearch: function (e) {
+			e.preventDefault();
+			var $input = this.$('.search');
+			var query = $input.val();
+			if (query) {
+				this.trigger('search', query);
 			}
 		},
 		indicateSort: function (sort, t) {
@@ -94,12 +102,14 @@ define(function (require) {
 			this.$el.on('click', 'a[data-sort]', this.handleClickSort);
 			this.$el.on('click', '.action-refresh', this.handleClickRefresh);
 			this.$el.on('click', '.action-expandtoggle', this.handleClickExpandToggle);
+			this.$el.on('submit', '.search-form', this.handleSubmitSearch);
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
 			this.$el.off('click', 'a[data-sort]', this.handleClickSort);
 			this.$el.off('click', '.action-refresh', this.handleClickRefresh);
 			this.$el.off('click', '.action-expandtoggle', this.handleClickExpandToggle);
+			this.$el.off('submit', '.search-form', this.handleSubmitSearch);
 		}
 	});
 	return HeaderView;

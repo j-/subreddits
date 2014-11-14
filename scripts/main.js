@@ -83,6 +83,9 @@ define(function (require) {
 	header.on('collapseall', function () {
 		mainView.collapseAll();
 	});
+	header.on('search', function (query) {
+		listingController.search(query);
+	});
 
 	$(function () {
 		$(document.body)
