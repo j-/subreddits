@@ -4,4 +4,25 @@
 		display: inline-block;
 		width: @sidebar-width;
 	}
+	.navbar-form {
+		input.form-control {
+			background-color: darken(@navbar-inverse-bg, 10%);
+			border: none;
+		}
+		&.search-form {
+			position: relative;
+		}
+		&.search-form .search-button {
+			position: absolute;
+			top: 0;
+			right: (@padding-large-horizontal - 1px);
+			width: 30px;
+			height: 100%;
+			border: none;
+			background-color: transparent;
+			&:hover {
+				color: #fff;
+			}
+		}
+	}
 }
