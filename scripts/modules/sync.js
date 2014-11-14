@@ -1,7 +1,6 @@
 define(function (require, exports) {
 	var $ = require('jquery');
 	var _ = require('underscore');
-	var Promise = require('bluebird');
 	exports.getData = function (options) {
 		var settings = _.extend({
 			page: null,
@@ -31,6 +30,6 @@ define(function (require, exports) {
 			jsonp: 'jsonp',
 			data: settings
 		});
-		return Promise.resolve(xhr).cancellable();
+		return xhr;
 	};
 });

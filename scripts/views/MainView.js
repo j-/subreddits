@@ -61,9 +61,12 @@ define(function (require) {
 		},
 		scrollCallback: function (done) {
 			if (!this.listingController.end) {
-				this.listingController.loadMore({
+				var options = {
 					limit: 5
-				}, done);
+				};
+				this.listingController
+					.loadMore(options)
+					.then(done);
 			}
 			else {
 				// todo: once

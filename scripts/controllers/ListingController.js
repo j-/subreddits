@@ -1,6 +1,7 @@
 define(function (require) {
 	var ok = require('ok');
 	var _ = require('underscore');
+	var Promise = require('bluebird');
 	var sync = require('modules/sync');
 	var Listing = require('collections/Listing');
 	var ListingController = ok.Controller.extend({
@@ -27,7 +28,7 @@ define(function (require) {
 			this.state.set('atEnd', false);
 			this.state.set('currentPage', null);
 			if (this.latestXhr) {
-				this.latestXhr.cancel();
+				this.latestXhr.abort();
 				this.latestXhr = null;
 			}
 		},
@@ -40,7 +41,7 @@ define(function (require) {
 				t: query.t || null
 			});
 		},
-		loadMore: function (options, callback) {
+		loadMore: function (options) {
 			// use current state as defaults
 			options = _.extend({
 				after: this.state.get('after'),
@@ -49,23 +50,20 @@ define(function (require) {
 				sort: this.state.get('sort'),
 				t: this.state.get('t')
 			}, options);
-			// ensure callback is a function even if only a no-op
-			callback = typeof callback === 'function' ? callback : _.identity;
 			// no point fetching if the last result set was empty
 			if (this.state.get('atEnd')) {
-				callback(new Error('End of listing'));
+				return Promise.reject(new Error('At end of listing'));
 			}
 			// kill an existing request
 			if (this.latestXhr) {
-				this.latestXhr.cancel();
+				this.latestXhr.abort();
 			}
-			this.latestXhr = sync.getData(options)
+			this.latestXhr = sync.getData(options);
+			Promise.resolve(this.latestXhr)
 				.bind(this)
 				.catch(this.handleError)
 				.then(this.handleResponse);
-			this.latestXhr.then(function () {
-				callback(null);
-			});
+			return Promise.resolve(this.latestXhr);
 		},
 		reload: function () {
 			this.listing.empty();
