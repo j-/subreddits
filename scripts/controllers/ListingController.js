@@ -8,8 +8,10 @@ define(function (require) {
 		init: function (options) {
 			_.extend(this, _.pick(options, 'listing', 'router'));
 			_.bindAll(this, 'resetState', 'loadMore', 'handleResponse', 'handleRouteSubreddit', 'handleRouteFrontpage', 'handleRouteUsername', 'handleRouteDomain', 'handleRouteMulti', 'handleRouteSearch');
+			this.params = new ok.Map({
+				after: null
+			});
 			this.state = new ok.Map({
-				after: null,
 				atEnd: false,
 				currentPage: null
 			});
@@ -23,8 +25,7 @@ define(function (require) {
 		},
 		resetState: function () {
 			this.listing.empty();
-			this.setQuery(null);
-			this.state.set('after', null);
+			this.resetParams();
 			this.state.set('atEnd', false);
 			this.state.set('currentPage', null);
 			if (this.latestXhr) {
@@ -32,24 +33,19 @@ define(function (require) {
 				this.latestXhr = null;
 			}
 		},
-		setQuery: function (query) {
-			query = _.extend({}, query);
-			this.state.set({
-				after: query.after || null,
-				q: query.q || null,
-				sort: query.sort || null,
-				t: query.t || null
+		resetParams: function () {
+			_.forEach(this.params.properties, function (prop) {
+				prop.set(null);
 			});
+		},
+		setParams: function (params) {
+			this.params.set(params);
 		},
 		loadMore: function (options) {
 			// use current state as defaults
 			options = _.extend({
-				after: this.state.get('after'),
-				page: this.state.get('currentPage'),
-				q: this.state.get('q'),
-				sort: this.state.get('sort'),
-				t: this.state.get('t')
-			}, options);
+				page: this.state.get('currentPage')
+			}, this.params.get(), options);
 			// no point fetching if the last result set was empty
 			if (this.state.get('atEnd')) {
 				return Promise.reject(new Error('At end of listing'));
@@ -67,12 +63,12 @@ define(function (require) {
 		},
 		reload: function () {
 			this.listing.empty();
-			this.state.set('after', null);
+			this.params.set('after', null);
 			this.loadMore();
 		},
 		search: function (query) {
 			this.resetState();
-			this.setQuery({
+			this.setParams({
 				q: query
 			});
 			this.state.set('currentPage', '/search');
@@ -86,7 +82,7 @@ define(function (require) {
 		},
 		handleResponse: function (response) {
 			var after = response.data.after;
-			this.state.set('after', after);
+			this.params.set('after', after);
 			if (!after) {
 				this.state.set('atEnd', true);
 				this.handleEnd();
@@ -100,7 +96,7 @@ define(function (require) {
 				page += sort;
 			}
 			this.resetState();
-			this.setQuery(query);
+			this.setParams(query);
 			this.state.set('currentPage', page);
 			this.loadMore();
 		},
@@ -110,14 +106,14 @@ define(function (require) {
 				page += '/' + sort;
 			}
 			this.resetState();
-			this.setQuery(query);
+			this.setParams(query);
 			this.state.set('currentPage', page);
 			this.loadMore();
 		},
 		handleRouteUsername: function (username, query) {
 			var page = '/user/' + username;
 			this.resetState();
-			this.setQuery(query);
+			this.setParams(query);
 			this.state.set('currentPage', page);
 			this.loadMore();
 		},
@@ -127,7 +123,7 @@ define(function (require) {
 				page += '/' + sort;
 			}
 			this.resetState();
-			this.setQuery(query);
+			this.setParams(query);
 			this.state.set('currentPage', page);
 			this.loadMore();
 		},
@@ -137,13 +133,13 @@ define(function (require) {
 				page += '/' + sort;
 			}
 			this.resetState();
-			this.setQuery(query);
+			this.setParams(query);
 			this.state.set('currentPage', page);
 			this.loadMore();
 		},
 		handleRouteSearch: function (query) {
 			this.resetState();
-			this.setQuery(query);
+			this.setParams(query);
 			this.state.set('currentPage', '/search');
 			this.loadMore();
 		}
