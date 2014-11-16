@@ -15,19 +15,18 @@ define(function (require) {
 			_.extend(this, _.pick(options, 'controller', 'scrollElement', 'scrollThreshold', 'scrollCallback'));
 			this.$scrollElement = $(this.scrollElement);
 			// make listing
-			this.listingView = new ListingView({
+			this.listingView = this.addChildView(ListingView, {
 				className: 'listing-items',
 				watch: this.watch
 			});
-			this.endOfListingView = new EndOfListingView({
+			this.endOfListingView = this.addChildView(EndOfListingView, {
 				watch: this.controller.state.getProperty('atEnd')
 			});
 			this.canTrigger = true;
 		},
 		render: function () {
 			this.empty();
-			this.listingView.render();
-			this.endOfListingView.render();
+			this.renderChildViews();
 			this.$el
 				.append(this.listingView.el)
 				.append(this.endOfListingView.el);
@@ -71,15 +70,11 @@ define(function (require) {
 			this.listingView.collapseAll();
 		},
 		start: function () {
-			this.stop();
-			this.listingView.start();
-			this.endOfListingView.start();
+			ok.$View.prototype.start.call(this);
 			this.$scrollElement.on('scroll', this.handleScroll);
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
-			this.listingView.stop();
-			this.endOfListingView.stop();
 			this.$scrollElement.off('scroll', this.handleScroll);
 		}
 	});
