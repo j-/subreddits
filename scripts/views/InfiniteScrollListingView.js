@@ -5,15 +5,11 @@ define(function (require) {
 	var _ = require('underscore');
 	var ListingView = require('views/ListingView');
 	var EndOfListingView = require('views/EndOfListingView');
+	var InfiniteScrollController = require('controllers/InfiniteScrollController');
 	var InfiniteScrollListingView = ok.$View.extend({
-		scrollElement: window,
-		scrollThreshold: 200,
 		init: function (options) {
-			// bind context
-			_.bindAll(this, 'handleScroll');
 			// load options
-			_.extend(this, _.pick(options, 'controller', 'scrollElement', 'scrollThreshold', 'scrollCallback'));
-			this.$scrollElement = $(this.scrollElement);
+			_.extend(this, _.pick(options, 'controller'));
 			// make listing
 			this.listingView = this.addChildView(ListingView, {
 				className: 'listing-items',
@@ -22,7 +18,8 @@ define(function (require) {
 			this.endOfListingView = this.addChildView(EndOfListingView, {
 				watch: this.controller.state.getProperty('atEnd')
 			});
-			this.canTrigger = true;
+			this.scrollController = new InfiniteScrollController();
+			this.listenTo(this.scrollController, 'bottom', this.handleBottom);
 		},
 		render: function () {
 			this.empty();
@@ -31,51 +28,25 @@ define(function (require) {
 				.append(this.listingView.el)
 				.append(this.endOfListingView.el);
 		},
-		handleScroll: function () {
-			this.testScroll();
-		},
-		testScroll: function () {
-			if (this.canTrigger && this.isCloseToBottom()) {
-				this.canTrigger = false;
-				var context = this;
-				this.scrollCallback(function () {
-					context.canTrigger = true;
-					context.testScroll();
-				});
-			}
-		},
-		scrollCallback: function () {
-			// no-op
-			// virtual function
-		},
-		getScrollTop: function () {
-			return this.$scrollElement.scrollTop();
-		},
-		getScrollHeight: function () {
-			return document.body.scrollHeight;
-		},
-		getScrollBottom: function () {
-			return this.getScrollTop() + this.scrollElement.innerHeight;
-		},
-		isCloseToBottom: function () {
-			var height = this.getScrollHeight();
-			var bottom = this.getScrollBottom();
-			var threshold = this.scrollThreshold;
-			return height - bottom < threshold;
-		},
 		expandAll: function () {
 			this.listingView.expandAll();
 		},
 		collapseAll: function () {
 			this.listingView.collapseAll();
 		},
+		handleBottom: function () {
+			this.trigger('bottom');
+		},
+		resume: function () {
+			this.scrollController.resume();
+		},
 		start: function () {
 			ok.$View.prototype.start.call(this);
-			this.$scrollElement.on('scroll', this.handleScroll);
+			this.scrollController.start();
 		},
 		stop: function () {
 			ok.$View.prototype.stop.call(this);
-			this.$scrollElement.off('scroll', this.handleScroll);
+			this.scrollController.stop();
 		}
 	});
 	return InfiniteScrollListingView;

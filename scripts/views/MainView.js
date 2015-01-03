@@ -7,13 +7,13 @@ define(function (require) {
 		className: 'main-view',
 		init: function (options) {
 			_.extend(this, _.pick(options, 'router', 'listing', 'listingController', 'comments', 'commentsController'));
-			_.bindAll(this, 'scrollCallback', 'handleRouteListing', 'handleRouteComments');
+			_.bindAll(this, 'handleRouteListing', 'handleRouteComments');
 			this.listingView = this.addChildView(InfiniteScrollListingView, {
 				id: 'listing',
 				watch: this.listing,
 				controller: this.listingController,
 				scrollThreshold: 1200,
-				scrollCallback: this.scrollCallback
+				resumeDelay: 100
 			});
 			this.commentsView = this.addChildView(CommentsView, {
 				id: 'comments',
@@ -29,6 +29,7 @@ define(function (require) {
 			this.router.on('route:domain', this.handleRouteListing);
 			this.router.on('route:search', this.handleRouteListing);
 			this.router.on('route:comments', this.handleRouteComments);
+			this.listenTo(this.listingView, 'bottom', this.handleBottom);
 		},
 		render: function () {
 			this.empty();
@@ -59,19 +60,16 @@ define(function (require) {
 			this.empty();
 			this.$el.append(this.commentsView.$el);
 		},
-		scrollCallback: function (done) {
-			if (!this.listingController.end) {
-				var options = {
-					limit: 5
-				};
-				this.listingController
-					.loadMore(options)
-					.then(done);
-			}
-			else {
-				// todo: once
-				this.listingController.on('listing', done);
-			}
+		handleBottom: function () {
+			var options = {
+				limit: 15
+			};
+			var context = this;
+			this.listingController
+				.loadMore(options)
+				.then(function () {
+					context.listingView.resume();
+				});
 		},
 		expandAll: function () {
 			this.listingView.expandAll();
