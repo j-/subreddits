@@ -15,13 +15,13 @@
     "jquery": "~2.1.1",
     "underscore": "~1.7.0",
     "text": "~2.0.12",
-    "ok": "git://github.com/j-/ok.git#~0.3.1",
     "requirejs": "~2.1.15",
     "js-signals": "~1.0.0",
     "crossroads.js": "git://github.com/millermedeiros/crossroads.js.git#~0.12.0",
     "marked": "~0.3.2",
     "moment": "~2.8.3",
     "bluebird": "~2.3.10",
-    "query-string": "~1.0.0"
+    "query-string": "~1.0.0",
+    "okaylib": "~0.5.1"
   }
 }

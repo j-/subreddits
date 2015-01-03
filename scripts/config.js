@@ -5,9 +5,9 @@ var config = {
 	paths: {
 		'jquery': '../bower_components/jquery/dist/jquery',
 		'underscore': '../bower_components/underscore/underscore',
-		'ok': '../bower_components/ok/ok',
-		'ok.views': '../bower_components/ok/ok.views',
-		'ok.dollarview': '../bower_components/ok/ok.dollarview',
+		'ok': '../bower_components/okaylib/ok',
+		'ok.views': '../bower_components/okaylib/ok.views',
+		'ok.dollarview': '../bower_components/okaylib/ok.dollarview',
 		'text': '../bower_components/text/text',
 		'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap',
 		'signals': '../bower_components/js-signals/dist/signals',
@@ -18,17 +18,13 @@ var config = {
 		'querystring': '../bower_components/query-string/query-string'
 	},
 	shim: {
-		'ok': {
-			deps: ['underscore'],
-			exports: 'okaylib'
-		},
 		'ok.views': {
 			deps: ['ok'],
-			exports: 'okaylib'
+			exports: 'ok'
 		},
 		'ok.dollarview': {
 			deps: ['ok', 'ok.views', 'jquery'],
-			exports: 'okaylib'
+			exports: 'ok'
 		},
 		'bootstrap': {
 			deps: ['jquery'],
@@ -37,10 +33,14 @@ var config = {
 	},
 	map: {
 		'*': {
-			'jquery': 'lib/jquery-custom'
+			'jquery': 'lib/jquery-custom',
+			'ok': 'lib/ok-custom'
 		},
 		'lib/jquery-custom': {
 			'jquery': 'jquery'
+		},
+		'lib/ok-custom': {
+			'ok': 'ok'
 		}
 	}
 };
