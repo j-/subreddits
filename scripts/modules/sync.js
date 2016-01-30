@@ -21,7 +21,7 @@ define(function (require, exports) {
 			show: null
 		}, options);
 		// convert subreddit(s) into url
-		var page = 'http://www.reddit.com' + (settings.page || '/') + '.json';
+		var page = 'https://www.reddit.com' + (settings.page || '/') + '.json';
 		delete settings.page;
 		// make call
 		var xhr = $.ajax({
