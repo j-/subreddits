@@ -256,7 +256,7 @@ th {
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon,
-.subreddit-selector .collapse-toggle {
+#subreddit-selector .collapse-toggle {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -4200,20 +4200,6 @@ body {
 blockquote {
   font-size: 14px;
 }
-.navigation {
-  background: #f6f7f8;
-  width: 250px;
-  padding: 20px 0;
-  position: fixed;
-  top: 50px;
-  left: 0;
-  bottom: 0;
-  overflow: hidden;
-  border-right: 1px solid #bec3c6;
-}
-.navigation:hover {
-  overflow: auto;
-}
 .navbar .navbar-brand {
   color: #ddd;
   display: inline-block;
@@ -4238,43 +4224,57 @@ blockquote {
 .navbar .navbar-form.search-form .search-button:hover {
   color: #fff;
 }
-.subreddit-selector a {
+#subreddit-selector {
+  background: #f6f7f8;
+  width: 250px;
+  padding: 20px 0;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-right: 1px solid #bec3c6;
+}
+#subreddit-selector:hover {
+  overflow: auto;
+}
+#subreddit-selector a {
   text-decoration: none;
   display: inline-block;
   padding: 2px;
 }
-.subreddit-selector a:hover {
+#subreddit-selector a:hover {
   text-decoration: underline;
 }
-.subreddit-selector ul,
-.subreddit-selector li {
+#subreddit-selector ul,
+#subreddit-selector li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.subreddit-selector .details {
+#subreddit-selector .details {
   overflow: hidden;
 }
-.subreddit-selector .multireddit-name {
+#subreddit-selector .multireddit-name {
   color: #666;
   font-style: italic;
 }
-.subreddit-selector .inline-subreddit {
+#subreddit-selector .inline-subreddit {
   margin-left: 20px;
 }
-.subreddit-selector .subreddit-name,
-.subreddit-selector .multireddit-name {
+#subreddit-selector .subreddit-name,
+#subreddit-selector .multireddit-name {
   float: left;
 }
-.subreddit-selector .collapse-toggle {
+#subreddit-selector .collapse-toggle {
   float: left;
   outline: none;
   cursor: pointer;
 }
-.subreddit-selector .collapse-toggle:hover:after {
+#subreddit-selector .collapse-toggle:hover:after {
   color: #444;
 }
-.subreddit-selector .collapse-toggle:after {
+#subreddit-selector .collapse-toggle:after {
   font-size: 8.4px;
   display: inline-block;
   width: 20px;
@@ -4283,13 +4283,13 @@ blockquote {
   text-align: center;
   color: #888;
 }
-.subreddit-selector .collapse-toggle.expanded:after {
+#subreddit-selector .collapse-toggle.expanded:after {
   content: '\2212';
 }
-.subreddit-selector .subreddits {
+#subreddit-selector .subreddits {
   padding-left: 20px;
 }
-.subreddit-selector > .subreddits {
+#subreddit-selector > .subreddits {
   padding-left: 5px;
 }
 .listing-items {
